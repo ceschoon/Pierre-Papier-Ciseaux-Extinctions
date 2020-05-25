@@ -32,8 +32,10 @@ using namespace std;
 // It assumes that the drift and diffusion coefficients A,B are defined 
 // somewhere else
 
-double A(double x);
-double B(double x);
+//double A(double x);
+//double B(double x);
+double (*A)(double);
+double (*B)(double);
 
 double a_boundary;
 double b_boundary;

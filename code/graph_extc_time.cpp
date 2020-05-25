@@ -24,22 +24,40 @@
 
 using namespace std;
 
+
+
 /////////////////////////// global parameters //////////////////////////////
 
 int N = 100;
-double D_rho_approx = 0.001;
 
 Interpolation D_rho_interpol(0, 1.0/27, 1e-6); 
 
-double A(double rho) {return -3.0/N * rho;}
-double B(double rho) {return  1.0/N * D_rho_interpol.eval(rho);} 
-//double B(double rho) {return  1.0/N * compute_D_rho(rho);}
-//double B(double rho) {return  1.0/N * D_rho_approx;}
+double A_exact(double rho) {return -3.0/N * rho;}
+
+double B_comput(double rho) {return  1.0/N * compute_D_rho(rho);}
+double B_interp(double rho) {return  1.0/N * D_rho_interpol.eval(rho);} 
+double B_approx(double rho) {return  1.0/N * 0.001;}
 
 ////////////////////////////////////////////////////////////////////////////
 
-int main()
+
+
+
+int main(int argc, char **argv)
 {
+	//////////////////// option for estimation of D(rho) ///////////////////
+	
+	// default
+	A = &A_exact;
+	B = &B_interp;
+	
+	for (int i=1; i<argc; i++)
+	{
+		if ((string(argv[i])=="--comput")) B = &B_comput;
+		if ((string(argv[i])=="--interp")) B = &B_interp;
+		if ((string(argv[i])=="--approx")) B = &B_approx;
+	}
+	
 	////////////////////////// global parameters ///////////////////////////
 	
 	a_boundary = 0;          // absorbing barrier
@@ -53,10 +71,10 @@ int main()
 	
 	D_rho_interpol.init(compute_D_rho);
 	
+	//////////// We compute D(rho) for several values of rho ///////////////
+	
 	//double tau = compute_exit_time(0.02);
 	//cout << "exit time / N = " << tau/N << endl;
-	
-	//////////// We compute D(rho) for several values of rho ///////////////
 	
 	double rho_min = 0;
 	double rho_max = 1.0/27;

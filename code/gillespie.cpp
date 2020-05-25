@@ -15,10 +15,12 @@
 
 #include <random>
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <vector>
 #include <cmath>
 #include <omp.h>
+#include <stdexcept>
 #include "Integration_D_rho.h"  // find_max_a
 
 using namespace std;
@@ -62,14 +64,12 @@ double predation_rate(int predator, int pray, int Ns)
 }
 
 
-int main()
+int main(int argc, char **argv)
 {
 	/////////////////////// Random number generator ////////////////////////
 	
 	random_device true_gen;
 	int seed = true_gen();
-	cout << "seed = " << seed << endl;
-	cout << endl;
 	
 	// We create the rng engine inside of the parallelised loop
 	// otherwise the same random number sequence is used by all threads
@@ -78,6 +78,9 @@ int main()
 	
 	////////////////////////////// Parameters //////////////////////////////
 	
+	bool script_mode = false;
+	bool cout_enabled = true;
+	
 	double T = -1;      // simulation time (negative means unlimited)
 	double rho = 0.02;  // a*b*c invariant of the deterministic dynamics
 	                    // rho controls to number of individuals per species
@@ -85,17 +88,64 @@ int main()
 	int Ns = 3;         // number of species
 	int M = 100;        // number of trajectories
 	
-	cout << endl;
-	cout << "Parameters:" << endl;
-	cout << endl;
-	cout << "T =   " << T   << endl;
-	cout << "rho = " << rho << endl;
-	cout << "N = " << N << endl;
-	cout << "Ns =  " << Ns  << endl;
-	cout << "M =   " << M   << endl;
-	cout << endl;
+	////////////////////////////// Options /////////////////////////////////
+	
+	for (int i=1; i<argc; i++)
+	{
+		if ((string(argv[i])=="--script")) 
+		{
+			script_mode = true;
+			cout_enabled = false;
+			cout << fixed << setprecision(8);
+		}
+		
+		if ((string(argv[i])=="--rho")) 
+		{
+			if (argc > i+1) rho = stod(string(argv[i+1]));
+			else 
+				throw runtime_error("You must specify the value of rho, e.g. --rho 0.02");
+		}
+		
+		if ((string(argv[i])=="--N")) 
+		{
+			if (argc > i+1) N = stoi(string(argv[i+1]));
+			else 
+				throw runtime_error("You must specify the value of N, e.g. --N 100");
+		}
+		
+		if ((string(argv[i])=="--Ns")) 
+		{
+			if (argc > i+1) Ns = stoi(string(argv[i+1]));
+			else 
+				throw runtime_error("You must specify the value of Ns, e.g. --Ns 3");
+		}
+		
+		if ((string(argv[i])=="--M")) 
+		{
+			if (argc > i+1) M = stoi(string(argv[i+1]));
+			else 
+				throw runtime_error("You must specify the value of M, e.g. --M 100");
+		}
+	}
 	
 	////////////////////////////// Simulation //////////////////////////////
+	
+	// Report parameters
+	
+	if (cout_enabled)
+	{
+		cout << endl;
+		cout << "seed = " << seed << endl;
+		cout << endl;
+		cout << "Parameters:" << endl;
+		cout << endl;
+		cout << "T =   " << T   << endl;
+		cout << "rho = " << rho << endl;
+		cout << "N = " << N << endl;
+		cout << "Ns =  " << Ns  << endl;
+		cout << "M =   " << M   << endl;
+		cout << endl;
+	}
 	
 	// extinction time for all trajectories
 	vector<double> t_extinction(M,0);
@@ -217,9 +267,23 @@ int main()
 	
 	// Report
 	
-	cout << endl;
-	cout << "Mean Extinction time (MS time) = " << t_extinction_avg;
-	cout << " +/- " << t_extinction_std/sqrt(M) << endl;
+	if (cout_enabled)
+	{
+		cout << endl;
+		cout << "Mean Extinction time (MS time) = " << t_extinction_avg;
+		cout << " +/- " << t_extinction_std/sqrt(M) << endl;
+	}
+	
+	if (script_mode)
+	{
+		cout << rho << " "
+		     << t_extinction_avg << " "
+		     << t_extinction_std/sqrt(M) << " "
+		     << N << " "
+		     << Ns << " "
+		     << M << " "
+		     << endl;
+	}
 	
 	////////////////////////////////////////////////////////////////////////
 	
