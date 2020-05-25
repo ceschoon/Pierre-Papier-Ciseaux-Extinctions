@@ -19,6 +19,7 @@
 #include <vector>
 #include <cmath>
 #include <omp.h>
+#include "Integration_D_rho.h"  // find_max_a
 
 using namespace std;
 
@@ -78,7 +79,9 @@ int main()
 	////////////////////////////// Parameters //////////////////////////////
 	
 	double T = -1;      // simulation time (negative means unlimited)
-	int Nps = 100;      // number of individuals per species
+	double rho = 0.02;  // a*b*c invariant of the deterministic dynamics
+	                    // rho controls to number of individuals per species
+	int N = 1000;       // number of individuals (from any species)
 	int Ns = 3;         // number of species
 	int M = 100;        // number of trajectories
 	
@@ -86,7 +89,8 @@ int main()
 	cout << "Parameters:" << endl;
 	cout << endl;
 	cout << "T =   " << T   << endl;
-	cout << "Nps = " << Nps << endl;
+	cout << "rho = " << rho << endl;
+	cout << "N = " << N << endl;
 	cout << "Ns =  " << Ns  << endl;
 	cout << "M =   " << M   << endl;
 	cout << endl;
@@ -102,8 +106,18 @@ int main()
 		// init system 
 		
 		double t = 0;
-		vector<int> species(Ns,Nps);
+		vector<int> species(Ns,0);
 		default_random_engine gen(seed+m);
+		
+		// compute number of individuals per species from rho
+		// set b=c in the initial state
+		
+		double a = find_max_a(rho,Ns);
+		double b = 1.0/(Ns-1) * (1-a);
+		
+		species[0] = int(a*N);
+		for (int i=1; i<species.size(); i++) species[i] = int(b*N);
+		
 		
 		// time loop
 		
@@ -185,7 +199,7 @@ int main()
 	// to macroscopic time (the one in the Fokker-Planck equation)
 	
 	//for (int m=0; m<M; m++) 
-	//	t_extinction[m] *= Ns*Nps;
+	//	t_extinction[m] *= N;
 	
 	// mean extinction time
 	

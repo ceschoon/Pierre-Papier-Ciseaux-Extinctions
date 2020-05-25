@@ -66,11 +66,11 @@ int main()
 	rho_min += rho_step;
 	rho_max -= 2*rho_step;
 	
-	int sysresult = system("mkdir -p exit_time");
+	int sysresult = system("mkdir -p extc_time");
 	
-	ofstream dataFile("exit_time/data.dat");
+	ofstream dataFile("extc_time/data.dat");
 	dataFile << fixed << setprecision(8);
-	dataFile << "# rho      exit_time" << endl;
+	dataFile << "# rho      extc_time" << endl;
 	
 	for (double rho=rho_min; rho<rho_max; rho+=rho_step)
 	{
@@ -80,7 +80,7 @@ int main()
 	
 	/////////////////////////// Gnuplot script /////////////////////////////
 	
-	ofstream plotFile("exit_time/plot.gp");
+	ofstream plotFile("extc_time/plot.gp");
 	
 	plotFile << "#----------------------------------------" << endl;
 	plotFile << "set terminal epslatex standalone color size 9cm,7cm" << endl;
@@ -103,7 +103,7 @@ int main()
 	
 	//////////////////// Bash script to plot everything ////////////////////
 	
-	ofstream shellFile("exit_time/plot.sh");
+	ofstream shellFile("extc_time/plot.sh");
 	
 	shellFile << "#! /bin/bash" << endl;
 	shellFile << "" << endl;
@@ -113,13 +113,13 @@ int main()
 	shellFile << "" << endl;
 	shellFile << "rm   plot.aux   plot.log   plot.tex   plot-inc.eps   plot-inc-eps-converted-to.pdf" << endl;
 	shellFile << "" << endl;
-	shellFile << "mv plot.pdf exit_time.pdf" << endl;
+	shellFile << "mv plot.pdf extc_time.pdf" << endl;
 	shellFile << "" << endl;
 	
 	shellFile.close();
 	
 	// execute it
-	sysresult = system("chmod +x exit_time/plot.sh; cd exit_time; ./plot.sh");
+	sysresult = system("chmod +x extc_time/plot.sh; cd extc_time; ./plot.sh");
 	
 	
 	return 0;

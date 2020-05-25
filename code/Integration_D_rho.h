@@ -36,21 +36,21 @@ void step_euler(double &a, double &b, double &c, double dt)
 }
 
 
-double find_max_a(double rho)
+double find_max_a(double rho, int Ns)
 {
-	// The max value of a occurs when b=c is minimum. We find the value
+	// The max value of a occurs when b=c=... is minimum. We find the value
 	// of a iteratively until we have a value obeying
-	//    rho = a*b*c = a*b^2 = 1/4 * a*(1-a)^2
+	//    rho = a*b*c = a*b^2 = 1/(Ns-1)^2 * a*(1-a)^2
 	
 	double a = 1.0;
-	double diff = rho - 1.0/4 * a*(1-a)*(1-a);
+	double diff = rho - 1.0/(Ns-1)/(Ns-1) * a*(1-a)*(1-a);
 	double step = -1e-2;
 	double precision = 1e-8; 
 	
 	while (abs(step)>precision)
 	{
 		double a_new = a + step;
-		double diff_new = rho - 1.0/4 * a_new*(1-a_new)*(1-a_new);
+		double diff_new = rho - 1.0/(Ns-1)/(Ns-1) * a_new*(1-a_new)*(1-a_new);
 		
 		// If we go in the wrong direction,
 		// we turn back with a lower step
@@ -85,7 +85,7 @@ double compute_D_rho(double rho)
 	
 	double t = 0;
 	double dt = 1e-3;
-	double a = find_max_a(rho);
+	double a = find_max_a(rho,3);
 	double b = 1.0/2 * (1-a);
 	double c = 1.0/2 * (1-a);
 	double D_rho = 0;
@@ -132,7 +132,7 @@ void debug()
 	#endif
 	
 	double rho = 0.02;
-	double a_max = find_max_a(rho);
+	double a_max = find_max_a(rho,3);
 	double D_rho = compute_D_rho(rho);
 	
 	cout << "rho =   " << rho << endl;
