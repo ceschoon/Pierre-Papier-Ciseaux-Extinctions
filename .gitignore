@@ -2,3 +2,5 @@ code/*
 
 !code/*.h
 !code/*.cpp
+!code/comparison_extc
+

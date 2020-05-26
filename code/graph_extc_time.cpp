@@ -30,6 +30,8 @@ using namespace std;
 
 int N = 100;
 
+// the precision of the interpolation should be greater than the precision
+// of the integrations in the escape problem
 Interpolation D_rho_interpol(0, 1.0/27, 1e-6); 
 
 double A_exact(double rho) {return -3.0/N * rho;}
@@ -63,7 +65,7 @@ int main(int argc, char **argv)
 	a_boundary = 0;          // absorbing barrier
 	b_boundary = 1.0/27;     // reflective barrier
 	
-	integration_dx = 8e-5;
+	integration_dx = 4e-5;
 	a_boundary += integration_dx;    // reduce interval to avoid problems
 	b_boundary -= 2*integration_dx;  // because D(a)=D(b)=0 and there are 1/D
 	
