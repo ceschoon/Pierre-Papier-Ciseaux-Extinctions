@@ -9,6 +9,10 @@
 %\usepackage{fancyhdr}
 %\usepackage{lastpage}
 
+\setlength{\parindent}{5mm}
+\setlength{\parskip}{5mm plus 1mm minus 1mm}
+\usepackage{indentfirst}
+
 %% FONTS ET SPACES   --------------------------------------------------------------
 
 %\usepackage{setspace}
@@ -39,6 +43,17 @@
 %\usepackage{siunitx}
 %\usepackage[squaren,Gray]{SIunits}
 
+\expandafter\def\expandafter\normalsize\expandafter{%
+	\normalsize
+	\setlength\abovedisplayskip{5mm}
+	\setlength\belowdisplayskip{5mm}
+	\setlength\abovedisplayshortskip{5mm}
+	\setlength\belowdisplayshortskip{5mm}
+}
+
+
+\usepackage{cancel}
+
 \usepackage{wrapfig}
 \usepackage{graphicx}
 %\usepackage{booktabs}
@@ -56,6 +71,7 @@
 \usepackage{todonotes} % needed for todos
 %\usepackage{makeidx} % needed for creating an index
 %\makeindex
+
 
 %\usepackage{listings}
 
