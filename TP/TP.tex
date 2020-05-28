@@ -322,8 +322,6 @@ Cette réduction nous intéresse tout particulièrement car les outils que nous 
 
 {\color{red} STOCHASTIC AVERAGING: ECRIRE UNE FOIS QUE J'AI MIEUX COMPRIS}
 
-{\color{red} qualité de l'approx 1D en fct de N ?}
-
 \section{Problème de première sortie d'un intervalle}
 
 \par Le problème de calculer le temps moyen d'extinction d'une espèce dans le modèle de prédation cyclique est équivalent à calculer le temps moyen de première sortie de la région ${a,b,c|a,b,c>0}$, où chaque espèce est présente avec une fraction non nulle. Une fois que la diffusion dans le système est réduite à un processus radial, le problème est unidimensionnel et la région à échapper est un simple intervalle, de frontières $\rho=0$ et $\rho=1/27$. Pour calculer le temps moyen d'extinction, nous allons nous baser sur ce parallèle entre les deux problèmes et utiliser les techniques d'analyse servant à résoudre le problème de première sortie pour un processus stochastique homogène 1D.
@@ -440,15 +438,46 @@ Il est facile de voir que la condition au bord $a$ demande que $c_1=0$. En intro
 %
 nous pouvons écrire la solution pour $T(x)$ sous la forme plus lisible
 %
-\begin{equation}\label{echap_sol_T_sans_c1}
+\begin{equation}\label{echap_sol_T_finale}
 	T(x) = \int_a^x \frac{1}{\psi(y)} \int_y^b \frac{2\psi(z)}{B(z)} \, \dd z \, \dd y.
 \end{equation}
 %
 
-\par Nous avons ainsi obtenu la formule donnant le temps de sortie moyen d'un intervalle pour un processus stochastique unidimensionnel. Cette formule nous permettra de calculer le temps moyen d'extinction dans notre modèle de prédation cyclique.
+\par Nous avons ainsi obtenu la formule donnant le temps de sortie moyen d'un intervalle pour un processus stochastique unidimensionnel. Cette formule nous permet de calculer le temps moyen d'extinction dans notre modèle de prédation cyclique. De l'équation de Fokker-Planck, nous pouvons identifier les coefficients de dérive et de diffusion
+%
+\begin{equation}\label{coefs_A_B_radial}
+A(\rho) = - \frac 3N \, \rho \qquad \text{et} \qquad 
+B(\rho) = \frac 1N \bar D(\rho).
+\end{equation}
+%
+Les bornes $a$ et $b$ sont dans ce cas $\rho=0$ et $\rho=1/27$, respectivement.
 
 
-\section{Temps moyen d'extinction}
+\section{Calcul numérique du temps moyen d'extinction}
+
+\par On obtient le temps moyen d'extinction à partir de la formule \ref{echap_sol_T_finale} en calculant les intégrales numériquement. Nous utilisons la méthode des trapèzes pour calculer les intégrales avec une précision quadratique en la discrétisation.
+
+\par La quantité $\bar D(\rho)$ intervenant dans le coefficient de diffusion est aussi calculée numériquement. On utilise l'expression {\color{red} reference} pour évaluer $\bar D(\rho)$ en sommant $D(a,b,c)$ le long des trajectoires déterministes. Les trajectoires sont générées par l'algorithme d'Euler, qui est amplement suffisant pour cette tâche. Nous partons du point de l'orbite où la fraction de l'espèce $a$ est maximale et intégrons les équations de la dynamique sur une demi-période seulement, étant donné la symétrie de l'intégrale {\color{red} reference} sous l'échange $b\leftrightarrow c$.
+
+\par Pour calculer le point d'une orbite $\rho = abc$ qui maximise $a$, il faut remarquer que quand $a$ est maximal nous avons $b=c$. L'état est donc caractérisé par les équations 
+%
+\begin{equation}\label{syst_a_max}
+	\rho = abc = ab^2  \qquad \text{et} \qquad 1 = a+b+c = a+2b
+\end{equation}
+%
+en isolant $a$ on obtient une équation cubique 
+%
+\begin{equation}\label{eq_a_max}
+	\rho = \frac 14 a (1-a)^2.
+\end{equation}
+%
+Bien que les équations polynomiales soient exactement solubles et plutôt que d'utiliser un algorithme de résolution de polynômes, nous procédons simplement de manière itérative pour recherche la solution de cette équation. En partant de $a=1$, nous diminuons la valeur de $a$ par petit à petit jusqu'à ce que les deux membres de l'équation s'équilibrent. Lorsque le point d'équilibre est passé, nous rebroussons chemin et augmentons maintenant $a$ par pas deux fois plus petits que précédemment. Nous répétons cette procédure jusqu'à ce que le pas soit suffisamment petit.
+
+\par Notons que la procédure complète pour calculer le temps d'extinction moyen requiert quatres intégrations: trois pour résoudre le problème d'échappement (voir equations \ref{echap_sol_T_finale} et \ref{echap_psi_x}) et une pour calculer $\bar D(\rho)$. Pour accélérer le calcul, nous calculons $\bar D(\rho)$ à l'avance en plusieurs points de l'intervalle $[0,1/27]$. Ensuite, nous calculons $\bar D(\rho)$ en interpolant les valeurs que nous avions enregistrées. Nous interpolons avec une parabole en utilisant les trois points les plus proches de la valeur désirée. Le calcul peut ainsi être effectué sur un temps de l'ordre de la minute.
+
+\par Au lieu de calculer le temps d'extinction moyen à partir de la valeur exacte de $\bar D(\rho)$, nous pouvons équalement faire une approximation de bruit constant en utilisant un terme de diffusion constant. Le choix $D=0.001$ fait par Frey et al. {\color{red} cite} donne une assez bonne approximation du résultat exact. La figure {\color{red} figure} montre les courbes obtenues par interpolation et approximation de $\bar D(\rho)$ côte à côte. Cette figure reporte également des résultats de simulations du système, dont nous parlons dans la section suivante. L'accord entre les calculs théorique (interpolation) et les simulation est excellent. Cela montre la qualité de l'approximation de moyennage effectué dans la section {\color{red} reference} réduisant le processus à une dimension.
+
+{\color{red} Comment évolue la qualité de l'approx avec le nombre d'individus $N$?}
 
 \begin{figure}
 	\centering
@@ -460,7 +489,7 @@ nous pouvons écrire la solution pour $T(x)$ sous la forme plus lisible
 		\centering
 		\includegraphics[width=\linewidth]{figures/extc_time_comparison}
 	\end{subfigure}%
-	\caption{Le graphique de gauche représente la fonction $\bar D(\rho)$ donnant l'intensité de la diffusion dans le processus radial. Le graphique de droite donne le temps d'extinction $t/N$ en fonction de la valeur de $\rho$ au point de départ dans le système. La comparaison est faite des temps d'extinction calculé selon l'expression exacte de $\bar D(\rho)$ ("interp"), une approximation à bruit constant $\bar D(\rho)=0.001$ ("approx") ou encore en faisant des simulations du système ("simul"). {\color{red} Séparer les figures, agrandir la figure avec les extinctions}}
+	\caption{Le graphique de gauche représente la fonction $\bar D(\rho)$ donnant l'intensité de la diffusion dans le processus radial. Le graphique de droite donne le temps d'extinction $t/N$ en fonction de la valeur de $\rho$ au point de départ dans le système. La comparaison est faite des temps d'extinction calculé selon l'expression exacte de $\bar D(\rho)$ ("interp"), une approximation à bruit constant $\bar D(\rho)=0.001$ ("approx") ou encore en faisant des simulations du système ("simul"). Dans ces calculs, le nombre d'individus est $N=100$. {\color{red} Séparer les figures, agrandir la figure avec les extinctions}}
 	\label{fig:D_rho_et_extc}
 \end{figure}
 
