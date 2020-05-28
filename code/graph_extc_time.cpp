@@ -28,7 +28,7 @@ using namespace std;
 
 /////////////////////////// global parameters //////////////////////////////
 
-int N = 100;
+int N = 1000;
 
 // the precision of the interpolation should be big enough compared to
 // than the precision of the integrations in the escape problem
