@@ -30,7 +30,7 @@ de type "pierre papier ciseaux"\\
 \begin{document}
 
 \maketitle
-\vspace{1cm}
+\vspace{2cm}
 
 \tableofcontents
 
@@ -71,6 +71,8 @@ de type "pierre papier ciseaux"\\
 
 \section{Présentation du modèle étudié}
 
+{\color{red} CHANGER CETTE SECTION EN PROPRE INTRODUCTION ?}
+
 \par Dans ce travail, nous nous intéressons à un modèle de prédation de type "pierre papier ciseaux". Dans ce modèle, trois espèces $A,B,C$ cohabitent et forment un réseau de prédation cyclique. Nous pouvons représenter les interactions du modèles par les réactions
 %
 \begin{equation}\label{reactions_k}
@@ -97,7 +99,17 @@ où le paramètre $k$ est la fréquence des interactions entre deux individus. L
 \end{split}
 \end{equation}
 %
-où nous avons noté en lettre minuscule la fraction d'individus de chaque espèce, i.e. $a=A/N$. La conservation du nombre d'individus montre que l'espace des phases est contenu dans le plan: $a+b+c=1$. Les trajectoires engendrées par les équations \ref{dyn_macro} sont représentées sur la figure {\color{red}figure}.
+où nous avons noté en lettre minuscule la fraction d'individus de chaque espèce, i.e. $a=A/N$. La conservation du nombre d'individus montre que l'espace des phases est contenu dans le plan: $a+b+c=1$. Les trajectoires engendrées par les équations \ref{dyn_macro} sont représentées sur la figure \ref{fig:portrait}.
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{figures/portrait}
+	\caption{Trajectoires macroscopiques dans l'espace des phases du système.}
+	\label{fig:portrait}
+\end{figure}
+
+
 
 \par La dynamique macroscopique possède deux invariants, ce qui le rend intégrable exactement. Le premier est trivial et est donné par la loi de conservation $a+b+c=1$. Le second est le produit $\rho = abc$, en effet
 %
@@ -140,7 +152,8 @@ L'équation maîtresse associée est
 	&+ k\, (C-1)(A+1)\, P_t(A+1,B,C-1) - k\, CA\, P_t(A,B,C).
 \end{split}
 \end{equation}
-
+% 
+Au contraire de la dynamique macroscopique déterministe, l'évolution microscopique ne préserve pas l'invariant $\rho = abc = ABC/N^3$. Le caractère aléatoire des trajectoires microscopiques mène finalement à l'extinction d'une des trois espèces, qui est irréversible. 
 
 \par En développant l'équation maîtresse en puissances de $\epsilon = 1/N$, on déduit l'équation de Fokker-Planck 
 %
@@ -154,9 +167,9 @@ où $\Psi_t(a,b,c)$ est la densité de probabilité pour les fractions $a,b,c$,
 	\Psi_t(a,b,c) = N^3 P_t(A,B,C) = \epsilon^{-3} P_t(a/\epsilon, b/\epsilon, c/\epsilon).
 \end{equation}
 
-\par Cette équation décrit la dynamique du système à une échelle intermédiaire, que l'on pourrait qualifier de "mésoscopique". L'équation de Fokker-Planck s'obtient dans la limite de grand $N$, mais nous gardons encore des puissances de $1/N$ dans le terme de diffusion. Cette description garde donc le caractère aléatoire des trajectoires microscopiques. Ce niveau de description est approprié pour étudier des phénomènes d'origine stochastique, comme l'extinction d'une des espèces du modèle, en ayant la possibilité d'employer les outils de calcul différentiel, qui s'appliquent à une description en variables continues.
+\par Cette équation décrit la dynamique du système à une échelle intermédiaire, que l'on pourrait qualifier de "mésoscopique". L'équation de Fokker-Planck s'obtient dans la limite de grand $N$, mais nous gardons encore des puissances de $1/N$ dans le terme de diffusion. Cette description garde donc le caractère aléatoire des trajectoires microscopiques. Ce niveau de description est approprié pour étudier des phénomènes d'origine stochastique, comme l'extinction d'une des espèces du modèle, en ayant la possibilité d'employer les outils de calcul différentiel, qui s'appliquent à une description en variables continues. 
 
-{\color{red} pas meme temps} 
+\par Il est important de souligner que l'échelle de temps apparaissant dans les équations maîtresse et de Fokker-Planck n'est pas la même. Pour formuler l'équation de Fokker-Planck ainsi, il est nécessaire d'absorber les paramètres $k$ et $N$ dans la variable temporelle (voir section suivante). 
 
 \par Les quantités $\mu_i$ et $D_{ij}$ sont respectivement les vecteurs de dérive et la matrice de diffusion. Le vecteur de dérive est donné par 
 %
@@ -300,13 +313,156 @@ La correspondance entre les termes violets, vert et bleus des équations \ref{mo
 \end{equation}
 %
 
-{\color{red} dev termes cyan pour mieux voir}
-
 \section{Réduction à un processus radial}
 
-\section{Problème d'échappement d'un intervalle}
+\par L'évolution dictée par l'équation de Fokker-Planck montre que la dérive le long du vecteur $\boldsymbol \mu$, se produit sur des temps beaucoup plus courts que le phénomène de diffusion. Le rapport entre les deux échelles est donné par le facteur $\epsilon = 1/N$ dans la matrice de diffusion (eq \ref{D_ij_expr}), qui montre que la diffusion est de moins en moins importante dans la limite $N\rightarrow\infty$. Cette différence d'échelle implique qu'une densité de probabilité piquée autour d'un point de l'espace des phase va évoluer le long d'une orbite déterministe beaucoup plus vite qu'elle ne va s'étaler sur les orbites voisines.
+
+\par Une conséquence importante est que nous pouvons approximer la dynamique du système en ne considérant qu'un terme de diffusion purement radial. L'idée est de "moyenner" le terme diffusif le long de la trajectoire déterministe pour ne garder qu'un processus transverse.
+Cette réduction nous intéresse tout particulièrement car les outils que nous allons utiliser pour traiter les extinctions dans le système s'appliquent beaucoup plus simplement aux processus unidimensionnels.
+
+{\color{red} STOCHASTIC AVERAGING: ECRIRE UNE FOIS QUE J'AI MIEUX COMPRIS}
+
+{\color{red} qualité de l'approx 1D en fct de N ?}
+
+\section{Problème de première sortie d'un intervalle}
+
+\par Le problème de calculer le temps moyen d'extinction d'une espèce dans le modèle de prédation cyclique est équivalent à calculer le temps moyen de première sortie de la région ${a,b,c|a,b,c>0}$, où chaque espèce est présente avec une fraction non nulle. Une fois que la diffusion dans le système est réduite à un processus radial, le problème est unidimensionnel et la région à échapper est un simple intervalle, de frontières $\rho=0$ et $\rho=1/27$. Pour calculer le temps moyen d'extinction, nous allons nous baser sur ce parallèle entre les deux problèmes et utiliser les techniques d'analyse servant à résoudre le problème de première sortie pour un processus stochastique homogène 1D.
+
+\par On suppose que le processus 1D est régi par l'équation de Fokker-Planck
+%
+\begin{equation}\label{echap_eq_FP}
+	\partial_t p_t(x) = - \partial_x[ A(x) \, p_t(x) ] + \frac 12 \, \partial_x^2 [ B(x) \, p_t(x) ] .
+\end{equation}
+%
+Notre intervalle à échapper est $[a,b]$ avec une barrière absorbante en $a$ et répulsive en $b$. Nous commençons par nous intéresser à la quantité 
+%
+\begin{equation}\label{echap_def_G}
+	G(x,t) = \int_a^b \dd y \, p(y,t|x,0),
+\end{equation}
+%
+qui est la probabilité d'être encore dans l'intervalle au temps $t$, sachant que l'on démarre en $x$.
+
+\par Étant donné que l'équation de Fokker-Planck est homogène en le temps, nous avons que 
+%
+\begin{equation}\label{echap_homogeneite_p}
+	p(y,t|x,0) = p(y,0|x,-t)
+\end{equation}
+%
+et nous pouvons ainsi formuler l'équation de Fokker-Planck réverse en substituant la probabilité conditionelle dans l'équation originale {\color{red} clarifier?} 
+%
+\begin{equation}\label{echap_eq_FP_backward}
+	\partial_t p_t(y,t|x,0) = -A(x)\, \partial_x p_t(y,t|x,0) + \frac 12 \, B(x)\, \partial_x^2 p_t(y,t|x,0).
+\end{equation}
+%
+À la différence de l'équation de Fokker-Planck directe, l'équation réverse voit les dérivées agir directement sur la densité de probabilité. Cela nous permet de formuler une équation différentielle pour une observable, comme $G(x,t)$. En intégrant sur $y$, l'intégrale passe sous les dérivées en $x$,
+%
+\begin{equation}\label{echao_int_FP_backward}
+	\partial_t \int_a^b \dd y \, p(y,t|x,0) = - A(x) \, \partial_x \int_a^b \dd y \, p(y,t|x,0) + \frac 12 \, B(x) \, \partial_x^2 \int_a^b \dd y \, p(y,t|x,0),
+\end{equation}
+%
+et nous obtenons une équation différentielle pour $G(x,t)$,
+%
+\begin{equation}\label{echap_eq_G}
+	\partial_t G(x,t) = - A(x) \, \partial_x G(x,t) + \frac 12 \, B(x) \, \partial_x^2 G(x,t).
+\end{equation}
+%
+
+\par Le temps moyen de première sortie est une fonction de la position de départ dans l'intervalle. Il est donné par {\color{red} clarifier?}
+%
+\begin{equation}\label{echap_expr_Tx}
+	T(x) = - \int_0^\infty t \, \partial_t G(x,t) \, \dd t \, = \int_0^\infty  G(x,t) \, \dd t \, .
+\end{equation}
+%
+En intégrant l'équation pour $G(x,t)$ par rapport au temps,
+%
+\begin{equation}\label{echap_int_eq_G_1}
+	 - \int_0^\infty A(x) \, \partial_x G(x,t) \, \dd t + \frac 12 \int_0^\infty \, B(x) \, \partial_x^2 G(x,t) \, \dd t = \int_0^\infty \partial_t G(x,t) \, \dd t \, ,
+\end{equation}
+%
+\begin{equation}\label{echap_int_eq_G_2}
+	- A(x) \, \partial_x \int_0^\infty G(x,t) \, \dd t + \frac 12 \, B(x) \, \partial_x^2 \int_0^\infty G(x,t) \, \dd t = G(x,\infty) - G(x,0) \, ,
+\end{equation}
+%
+on obtient une équation différentielle pour $T(x)$,
+%
+\begin{equation}\label{echap_eq_T}
+	-A(x) \, \partial_x T(x) + \frac 12 \, B(x) \, \partial_x^2 T(x) = -1.
+\end{equation}
+%
+Le membre de droite de l'équation \ref{echap_int_eq_G_2} s'évalue à $-1$ car au temps initial la particule est dans l'intervalle avec probabilité $1$ et donc $G(x,0)=1$. De même, dans la limite de temps infini, la particule fini tôt ou tard par être absorbée par la barrière $a$, ainsi $G(x,\infty)=0$. 
+
+\par Pour résoudre l'équation différentielle \ref{echap_eq_T}, il reste à spécifier les conditions aux bords. La barrière $a$ est absorbante, une particule se trouvant en $x=a$ est ainsi immédiatement retirée de l'intervalle $[a,b]$ nous avons donc $G(a,0)=0$ comme condition à ce bord. Sur le temps de sortie, cette condition se traduit par $T(a)=0$. La barrière $b$ est répulsive, cela signifie que le flux net de probabilité est nul en $b$, et donc $\partial_x G(b,0) = 0$. Cela se traduit par $\partial_x T(b) = 0$.
+
+\par La résolution de l'équation différentielle pour $T(x)$ peut se faire par intégration directe. En posant $Y(x) = \partial_x T(x)$, l'équation \ref{echap_eq_T} devient 
+%
+\begin{equation}\label{echap_eq_T_int_directe}
+	\partial_x Y(x) - \frac{2A(x)}{B(x)} Y(x) = -\frac{2}{B(x)}.
+\end{equation}
+%
+La solution
+\footnote{
+	Pour résoudre une équation différentielle du type $f'(x)+p(x)f(x)=q(x)$, on peut chercher à l'écrire sous la forme directement intégrable $M'(x) = N(x)$. Pour cela, on multiplie les deux côtés de l'équation par $\exp(\int p)$. Le terme de droite s'écrit alors explicitement comme la dérivée d'un produit, $M' = f'\exp(\int p) + f p \exp(\int p)$, avec $M = f\exp(\int p)$. Le terme de gauche est $N = q \exp(\int p)$. Nous pouvons ensuite intégrer directement pour obtenir $M = \int N + c_0$ et donc $f = \exp(-\int p) \int N + c_0 \exp(-\int p)$.
+}
+pour $Y(x)$ est 
+%
+\begin{equation}\label{echap_sol_Y_avec_c0}
+\begin{split}
+	Y(x) &= \exp\left[ - \int_a^x \frac{2 A(y)}{B(y)} \dd y \right]
+	\int_a^x \frac{(-2)}{B(y)} \exp\left[ \int_a^y \frac{2 A(z)}{B(z)} \dd z\right] \dd y \\
+	&\quad + c_0 \exp\left[ - \int_a^x \frac{2 A(y)}{B(y)} \dd y \right].
+\end{split}	
+\end{equation}
+%
+La condition au bord $Y(b)=\partial_x T(b)=0$ impose que 
+%
+\begin{equation}\label{echap_sol_Y_bord_b}
+	c_0 = \int_a^x \frac{2}{B(y)} \exp\left[ \int_a^y \frac{2 A(z)}{B(z)} \dd z\right] \dd y,
+\end{equation}
+%
+et donc
+%
+\begin{equation}\label{echap_sol_Y_sans_c0}
+	Y(x) = \exp\left[ - \int_a^x \frac{2 A(y)}{B(y)} \dd y \right]
+	\int_x^b \frac{2}{B(y)} \exp\left[ \int_a^y \frac{2 A(z)}{B(z)} \dd z\right] \dd y.
+\end{equation}
+%
+Cette solution donne un temps moyen de première sortie
+%
+\begin{equation}\label{echap_sol_T_avec_c1}
+	T(x) = \int_a^x Y(y) \, \dd y + c_1.
+\end{equation}
+%
+Il est facile de voir que la condition au bord $a$ demande que $c_1=0$. En introduisant la fonction   
+%
+\begin{equation}\label{echap_psi_x}
+	\psi(x) = \exp\left[ \int_a^x \frac{2A(y)}{B(y)} \dd y \right] ,
+\end{equation}
+%
+nous pouvons écrire la solution pour $T(x)$ sous la forme plus lisible
+%
+\begin{equation}\label{echap_sol_T_sans_c1}
+	T(x) = \int_a^x \frac{1}{\psi(y)} \int_y^b \frac{2\psi(z)}{B(z)} \, \dd z \, \dd y.
+\end{equation}
+%
+
+\par Nous avons ainsi obtenu la formule donnant le temps de sortie moyen d'un intervalle pour un processus stochastique unidimensionnel. Cette formule nous permettra de calculer le temps moyen d'extinction dans notre modèle de prédation cyclique.
+
 
 \section{Temps moyen d'extinction}
+
+\begin{figure}
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/D_rho}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/extc_time_comparison}
+	\end{subfigure}%
+	\caption{Le graphique de gauche représente la fonction $\bar D(\rho)$ donnant l'intensité de la diffusion dans le processus radial. Le graphique de droite donne le temps d'extinction $t/N$ en fonction de la valeur de $\rho$ au point de départ dans le système. La comparaison est faite des temps d'extinction calculé selon l'expression exacte de $\bar D(\rho)$ ("interp"), une approximation à bruit constant $\bar D(\rho)=0.001$ ("approx") ou encore en faisant des simulations du système ("simul"). {\color{red} Séparer les figures, agrandir la figure avec les extinctions}}
+	\label{fig:D_rho_et_extc}
+\end{figure}
 
 \section{Simulation du système}
 
