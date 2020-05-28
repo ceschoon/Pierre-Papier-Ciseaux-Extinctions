@@ -30,8 +30,9 @@ using namespace std;
 
 int N = 100;
 
-// the precision of the interpolation should be greater than the precision
-// of the integrations in the escape problem
+// the precision of the interpolation should be big enough compared to
+// than the precision of the integrations in the escape problem
+// more precisely:   dx_interp <= 1e4 * dx_integr^2    (see below)
 Interpolation D_rho_interpol(0, 1.0/27, 1e-6); 
 
 double A_exact(double rho) {return -3.0/N * rho;}
@@ -64,16 +65,23 @@ int main(int argc, char **argv)
 	
 	a_boundary = 0;          // absorbing barrier
 	b_boundary = 1.0/27;     // reflective barrier
+	integration_dx = 4e-5;   // discretisation length
 	
-	integration_dx = 4e-5;
-	a_boundary += integration_dx;    // reduce interval to avoid problems
-	b_boundary -= 2*integration_dx;  // because D(a)=D(b)=0 and there are 1/D
+	// we crop the interval to avoid problems due to D(a)=D(b)=0
+	// as there are places where we divide by D.
+	// also, the interpolation we use for D cannot be used too close to 
+	// the boundaries
+	// we crop the interval by an amount that is quadratic in dx in 
+	// order to save the quadratic precision of the integration algorithm.
+	
+	a_boundary +=   integration_dx*integration_dx*1e4;
+	b_boundary -= 2*integration_dx*integration_dx*1e4;
 	
 	// contruct interpolation of D(rho)
 	
 	D_rho_interpol.init(compute_D_rho);
 	
-	//////////// We compute D(rho) for several values of rho ///////////////
+	//////////// We compute T(rho) for several values of rho ///////////////
 	
 	//double tau = compute_exit_time(0.02);
 	//cout << "exit time / N = " << tau/N << endl;
@@ -83,7 +91,7 @@ int main(int argc, char **argv)
 	double rho_step = 1e-3;
 	
 	// shift to avoid problems near boundaries
-	rho_min += rho_step;
+	rho_min +=   rho_step;
 	rho_max -= 2*rho_step;
 	
 	int sysresult = system("mkdir -p extc_time");
