@@ -69,9 +69,8 @@ de type "pierre papier ciseaux"\\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\section{Présentation du modèle étudié}
-
-{\color{red} CHANGER CETTE SECTION EN PROPRE INTRODUCTION ?}
+\section{Introduction}
+\label{section_introduction}
 
 \par Dans ce travail, nous nous intéressons à un modèle de prédation de type "pierre papier ciseaux". Dans ce modèle, trois espèces $A,B,C$ cohabitent et forment un réseau de prédation cyclique. Nous pouvons représenter les interactions du modèles par les réactions
 %
@@ -85,9 +84,13 @@ de type "pierre papier ciseaux"\\
 %
 où le paramètre $k$ est la fréquence des interactions entre deux individus. Le nombre total d'individus $N=A+B+C$ est conservé dans cette dynamique. Nous avons ici symbolisé le nombre d'individus de chanque espèce par le même symbole $A,B$ ou $C$ employé pour désigner l'espèce.
 
+\par Le sujet que nous allons développer porte sur les extinctions qui se produisent dans ce modèle lorsque le nombre d'induvidus est fini. Dans la limite macroscopique, la présence d'une grandeur conservée fait que l'extinction d'une espèce est impossible. Cependant, l'évolution stochastique d'un nombre fini d'individu mène systématiquement à un extinction, après un temps moyen linéaire en le nombre d'individus. 
+
+\par Nous allons commencer par exposer les détails de la dynamique du système à différents niveaux de description. Ensuite, nous allons chercher à calculer le temps moyen d'extinction dans ce modèle. Pour cela, nous allons réduire le processus stochastique à une variable en utilisant une méthode de moyennage, puis utiliser le formalisme des équations de Fokker-Planck pour calculer le temps d'extinction comme un temps de première sortie d'une région de l'espace des phases. Pour supporter les résultats obtenus, nous les comparons avec des simulations que nous détaillerons à la fin de ce travail. 
 
 
 \section{Dynamique macroscopique}
+\label{section_macro}
 
 \par Dans limite macroscopique, i.e. $N\rightarrow \infty$, le système obéit aux équations dynamiques {\color{red}montrer limite eq maîtresse/FP ?}
 %
@@ -129,6 +132,7 @@ où nous avons noté en lettre minuscule la fraction d'individus de chaque espè
 
 
 \section{Dynamiques micro et mésoscopiques}
+\label{section_micro}
 
 \par La dynamique microscopique est un processus de Markov pour lequel un état du système $\{A,B,C\}$ subit les transitions 
 %
@@ -197,8 +201,40 @@ et la matrice de diffusion est
 \end{equation}
 où $\bold r_t = (a,b,c)$, $\bold D = \frac 12 \boldsymbol \sigma \boldsymbol \sigma^T$, et $\bold W_t$ est un processus de Wien de moyenne nulle et de variance unité.
 
+\par À partir de l'équation de Fokker-Planck (eq \ref{eq_FP}), nous pouvons calculer l'évolution de la moyenne de l'invariant déterministe $\rho=abc\geq 0$. On constate que celui-ci ne peut que décroître, menant inéluctablement les trajectoires sur les bords de l'espace des phase, où $\rho=0$. En effet,
+%
+\begin{equation}\label{dt_rho_initial}
+\begin{split}
+	\frac{\dd}{\dd t} \langle \rho \rangle 
+	&= \frac{\dd}{\dd t} \int abc \, \Psi_t(a,b,c) \, \dd a \, \dd b \, \dd c \\
+	&= \int abc \, \partial_t \Psi_t(a,b,c) \, \dd a \, \dd b \, \dd c \\
+	&= - \int abc \, \partial_i (\mu_i \, \Psi_t) \, \dd a \, \dd b \, \dd c 
+	+ \int abc \, \partial_i\partial_j (D_{ij} \, \Psi_t) \, \dd a \, \dd b \, \dd c \\
+	&= \int \partial_i (abc) \, \mu_i \, \Psi_t \, \dd a \, \dd b \, \dd c
+	+ \int \partial_i\partial_j (abc) \, D_{ij} \, \Psi_t \, \dd a \, \dd b \, \dd c,
+\end{split}
+\end{equation}
+%
+la dernière ligne s'obtenant en intégrant par parties. La première intégrale correspond à l'évolution déterministe, qui doit s'annuler pour retrouver l'invariance de $\rho$. On vérifie bien que 
+%
+\begin{equation}\label{dt_rho_contrib_det}
+	\partial_i(abc) \mu_i = bc\, a(b-c) + ac\, b(c-a) + ab\, c(a-b) = 0.
+\end{equation}
+%
+La deuxième intégrale correspond à l'évolution stochastique, pour laquelle
+%
+\begin{equation}\label{dt_rho_contrib_stoch}
+	\partial_i\partial_j (abc) \, D_{ij} = c(-ab)+b(-ac)+c(-ab)+a(-bc)+b(-ac)+a(-bc) = -6\, abc.
+\end{equation}
+Ainsi,
+%
+\begin{equation}\label{dt_rho_final}
+	\frac{\dd}{\dd t} \langle \rho \rangle = -6 \int abc \, \Psi_t \, \dd a \, \dd b \, \dd c = -6 \langle \rho \rangle < 0.
+\end{equation}
+%
 
 \section{Développement de Kramers-Moyal de l'équation maîtresse}
+\label{section_kramers_moyal}
 
 \par On commence par exprimer l'équation maîtresse (eq \ref{eq_maitresse}) avec les variables "mésoscopiques" $\Psi_t$, $a,b,c$ et $\epsilon=1/N$. On obtient
 %
@@ -314,15 +350,134 @@ La correspondance entre les termes violets, vert et bleus des équations \ref{mo
 %
 
 \section{Réduction à un processus radial}
+\label{section_stoch_averaging}
 
 \par L'évolution dictée par l'équation de Fokker-Planck montre que la dérive le long du vecteur $\boldsymbol \mu$, se produit sur des temps beaucoup plus courts que le phénomène de diffusion. Le rapport entre les deux échelles est donné par le facteur $\epsilon = 1/N$ dans la matrice de diffusion (eq \ref{D_ij_expr}), qui montre que la diffusion est de moins en moins importante dans la limite $N\rightarrow\infty$. Cette différence d'échelle implique qu'une densité de probabilité piquée autour d'un point de l'espace des phase va évoluer le long d'une orbite déterministe beaucoup plus vite qu'elle ne va s'étaler sur les orbites voisines.
 
-\par Une conséquence importante est que nous pouvons approximer la dynamique du système en ne considérant qu'un terme de diffusion purement radial. L'idée est de "moyenner" le terme diffusif le long de la trajectoire déterministe pour ne garder qu'un processus transverse.
-Cette réduction nous intéresse tout particulièrement car les outils que nous allons utiliser pour traiter les extinctions dans le système s'appliquent beaucoup plus simplement aux processus unidimensionnels.
+\par Une conséquence importante est que nous pouvons approximer l'évolution de l'invariant $\rho$ comme un processus stochastique unidimensionnel. %L'idée est de "moyenner" le terme diffusif le long des trajectoires déterministes. 
+Cette simplification nous intéresse tout particulièrement car les outils que nous allons utiliser pour traiter les extinctions dans le système s'appliquent beaucoup plus simplement aux processus unidimensionnels.
 
-{\color{red} STOCHASTIC AVERAGING: ECRIRE UNE FOIS QUE J'AI MIEUX COMPRIS}
+\par On commence par exprimer les accroissements $\dd \rho$ en termes de $\dd \bold r$,
+%
+\begin{equation}\label{averaging_drho_1}
+	\dd\rho = \rho(\bold r+ \dd \bold r) - \rho (\bold r) = \partial_i\rho \, \dd r_i + \frac 12 \partial_i \partial_j \rho \, \dd r_i \, \dd r_j.
+\end{equation}
+% 
+Ensuite, nous substituons l'équation différentielle stochastique pour $\bold r$ (eq \ref{SDE_abc}),
+%
+\begin{equation}\label{averaging_drho_2}
+	\dd \rho = \mu_i\partial_i\rho \, \dd t + \sigma_{ij} \, \partial_i\rho \, \dd W_j + \frac 12 \, \partial_i \partial_j \rho \  \sigma_{ik}\sigma_{jl} \, \dd W_k \, \dd W_l.
+\end{equation}
+%
+La relation \ref{dt_rho_contrib_det} montre que le premier terme s'annule. Nous transformons le dernier terme en utilisant les relations $\dd W_k \, \dd W_l = \delta_{kl} \, \dd t$ et $\frac 12 \boldsymbol \sigma \boldsymbol \sigma^T = \bold D$ pour obtenir
+%
+\begin{equation}\label{averaging_drho_3}
+	\dd \rho = \partial_i \partial_j \rho \ D_{ij} \, \dd t + \sigma_{ij} \, \partial_i\rho \, \dd W_j.
+\end{equation}
+%
+\par Le premier terme est un terme de dérive pour l'évolution de $\rho$, mais provient de la diffusion dans l'évolution des variables $a,b,c$. Il s'évalue à
+%
+\begin{equation}\label{drho_derive_stoch}
+\begin{split}
+	\partial_i \partial_j \rho \ D_{ij}
+	&= \frac \epsilon 2 \, [ a(b+c) \, \cancel{ \partial_a^2(abc)} + (-ab) \, \partial_a \partial_b(abc) + (-ac) \, \partial_a\partial_c(abc) \\
+	&\qquad + (-ab) \, \partial_b \partial_a (abc) + b(c+a) \, \cancel{ \partial_b^2(abc)} + (-bc) \, \partial_b\partial_c(abc) \\
+	&\qquad + (-ac) \, \partial_c\partial_a(abc) + (-bc) \, \partial_c\partial_b(abc) + c(a+b) \, \cancel{ \partial_c^2(abc)} \,] \\
+	&= \frac \epsilon 2 \, [-6 \, abc \,] = -3\epsilon \, \rho = -\frac 3N \, \rho.
+\end{split}
+\end{equation}
+%
+Le deuxième terme cache une dépendance en $N$ à l'intérieur de $\sigma_{ij}$. Pour se rapprocher de la convention employée dans \cite{frey2012}, nous utilisons les matrices $\bold C$ et $\bold B$, indépendentes de $N$, telles que $\boldsymbol \sigma = \frac{1}{\sqrt{N}} \bold C$ et $\bold D = \frac{1}{2N} \bold B$, et $\bold B = \bold C \bold C^T$, pour réécrire notre équation différentielle stochastique sous la forme
+%
+\begin{equation}\label{averaging_drho_4}
+	\dd \rho = -\frac 3N \, \rho \, \dd t + \frac{1}{\sqrt{N}}\, C_{ij} \, \partial_i\rho \, \dd W_j.
+\end{equation}
+%
+
+\par À ce stade, notre équation pour $\dd \rho$ contient encore des références à la dynamique dans l'espace des phases $a,b,c$ de part la dimension du bruit $\dd W_j$ et à travers $C_{ij}$ qui dépend encore explicitement de $a,b,c$. Frey et al. éliminent ces problèmes en moyennant le terme de diffusion sur les trajectoires du système déterministe \cite{frey2012}. Ils invoquent un théorème de Khasminskii \cite{khasminskij1968} pour obtenir un processus unidimensionnel
+%
+\begin{equation}\label{averaging_drho_final}
+	\dd \rho = -\frac 3N \,\rho\,\dd t + \frac{1}{\sqrt{N}} \sqrt{\bar D(\rho)} \,\dd W
+\end{equation}
+%  
+avec un coefficient de diffusion effectif obtenu en moyennant un coefficient de diffusion $D(a,b,c)$, local sur la trajectoire, sur une période complète de l'orbite,
+%
+\begin{equation}\label{D_rho_from_D_abc}
+	\bar D(\rho) = \frac{1}{T(\rho)} \int_0^{T(\rho)} D(a,b,c) \ \dd t.
+\end{equation}
+%
+Ils fournissent la formule
+%
+\begin{equation}\label{formule_D_abc}
+	D(a,b,c) = (\bold C \bold \nabla\rho)^T(\bold C \bold \nabla\rho) = (\bold \nabla\rho)^T \bold B \, (\bold \nabla\rho),
+\end{equation}
+%
+ce qui nous permet d'évaluer $D(a,b,c)$,
+%
+\begin{equation}\label{eval_D_abc}
+\begin{split}
+	D(a,b,c) 
+	&= \partial_a(abc) \, a(b+c) \, \partial_a(abc) 
+	+ \partial_a(abc) \, (-ab) \, \partial_b(abc) \\
+	&\quad + \partial_a(abc) \, (-ac) \, \partial_c(abc) + p.c. \\
+%	&\quad + \partial_b(abc) \, (-ab) \, \partial_a(abc)
+%	+ \partial_b(abc) \, b(c+a) \, \partial_b(abc)
+%	+ \partial_b(abc) \, (-bc) \, \partial_c(abc) \\
+%	&\quad + \partial_c(abc) \, (-ac) \, \partial_a(abc)
+%	+ \partial_c(abc) \, (-bc) \, \partial_b(abc)
+%	+ \partial_c(abc) \, c(a+b) \, \partial_c(abc) \\
+	&= a(b+c) \, b^2c^2 - a^2b^2c^2 - a^2b^2c^2 + p.c. \\
+	&= (abc)^2 \left( \frac{b+c}{a}-2 \right)  + p.c. \\ 
+	&= \rho^2 \left( \frac{1-a}{a}-2 \right)  + p.c. \\
+	&= \rho^2 \left( \frac{1}{a}-3 \right)  + p.c. \\
+	&= \rho^2 \left( -9 + \frac 1a + \frac 1b + \frac 1c \right) 
+\end{split}
+\end{equation}
+%
+
+
+\subsection*{Justifications de l'étape de moyennage stochastique}
+
+\par Dans l'article de Frey et al. \cite{frey2012}, peu d'explications sont fournies concernant l'étape de moyennage. Il m'a été difficile de trouver des références dans la littérature détaillant cette procédure. J'identifie deux points qui ne sont pas clairs. Le premier est le passage d'un processus de Wien tridimensionnel à un processus unidimensionnel. Le second est l'étape de moyennage elle-même, c'est à dire la formule {\color{red}reference}. Pourquoi la moyenne se fait sur la grandeur $D$ et pas une autre, par example sa racine?
+
+\par Concernant le premier point, il semble possible de réduire la dimension du processus de Wien $\dd W_j$ en remarquant que la matrice $\bold C$ est définie à une multiplication près $\bold C \bold S$, à condition que la matrice $\bold S$ soit orthogonale. Ceci est dû au fait que cette transformation ne modifie pas la matrice de diffusion 
+%
+\begin{equation}\label{invariance_B}
+	\bold B' = (\bold C \bold S) (\bold C \bold S)^T = \bold C \, \bold S \bold S^T \bold C^T = \bold C \bold C^T = \bold B.
+\end{equation}
+%
+Cette propriété traduit le fait que le terme de diffusion de l'équation différentielle stochastique peut être construite avec un bruit $\dd W_j$ donné dans une base quelconque, sans changer la nature du processus qui en résulte. %La conséquence qui nous intéresse est que l'on peut formuler notre équation dans une base pour laquelle l'un des axes est aligné avec le gradient de $\rho$. Ainsi, {\color{red} CONTINUER}
+La conséquence qui nous intéresse est que l'on peut toujours transormer $\bold C$ en une matrice triangulaire (cf. décomposition QR). Dans une base pour laquelle l'un des axes est aligné avec le gradient de $\rho$, nous avons $\partial_2\rho = \partial_3\rho = 0$ et ainsi
+%
+\begin{equation}\label{reduction_dW_1D_1}
+	C_{ij} \, \partial_i\rho \, \dd W_j = 
+	C_{1j} \, \partial_1\rho \, \dd W_j + 
+	\cancel{ C_{2j} \, \partial_2\rho \, \dd W_j } + 
+	\cancel{ C_{3j} \, \partial_3\rho \, \dd W_j }
+	= C_{1j} \, \partial_1\rho \, \dd W_j
+\end{equation}
+%
+Comme nous pouvons considérer la matrice $\bold C$ comme étant triangulaire supérieure sans perte de généralité, $C_{12} = C_{13} = 0$ et cela réduit donc la dimension du processus de Wien nécessaire dans l'équation différentielle stochastique,
+%
+\begin{equation}\label{reduction_dW_1D_2}
+	C_{ij} \, \partial_i\rho \, \dd W_j = C_{11} \, \partial_1\rho \, \dd W_1.
+\end{equation}
+%
+Nous pouvons donc réécrire l'équation \ref{averaging_drho_4} avec un processus de Wien unidimensionnel,
+%
+\begin{equation}\label{averaging_drho_5}
+\dd \rho = -\frac 3N \, \rho \, \dd t + \frac{1}{\sqrt{N}}\, \sqrt{D} \, \partial_i\rho \, \dd W,
+\end{equation}
+%
+en utilisant un coefficient de diffusion $D(a,b,c)$ qui préserve la variance du processus,
+%
+\begin{equation}\label{expr_D_abc_variance}
+	D(a,b,c) = (\bold C \bold \nabla\rho)^T(\bold C \bold \nabla\rho) = (\bold \nabla\rho)^T \bold B \, (\bold \nabla\rho).
+\end{equation}
+%
 
 \section{Problème de première sortie d'un intervalle}
+\label{section_echap}
 
 \par Le problème de calculer le temps moyen d'extinction d'une espèce dans le modèle de prédation cyclique est équivalent à calculer le temps moyen de première sortie de la région ${a,b,c|a,b,c>0}$, où chaque espèce est présente avec une fraction non nulle. Une fois que la diffusion dans le système est réduite à un processus radial, le problème est unidimensionnel et la région à échapper est un simple intervalle, de frontières $\rho=0$ et $\rho=1/27$. Pour calculer le temps moyen d'extinction, nous allons nous baser sur ce parallèle entre les deux problèmes et utiliser les techniques d'analyse servant à résoudre le problème de première sortie pour un processus stochastique homogène 1D.
 
@@ -454,10 +609,18 @@ Les bornes $a$ et $b$ sont dans ce cas $\rho=0$ et $\rho=1/27$, respectivement.
 
 
 \section{Calcul numérique du temps moyen d'extinction}
+\label{section_textc_numerique}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{figures/D_rho}
+	\caption{Coefficient de diffusion effectif $\bar D(\rho)$ en fonction de $\rho$.}
+	\label{fig:D_rho}
+\end{figure}
 
 \par On obtient le temps moyen d'extinction à partir de la formule \ref{echap_sol_T_finale} en calculant les intégrales numériquement. Nous utilisons la méthode des trapèzes pour calculer les intégrales avec une précision quadratique en la discrétisation.
 
-\par La quantité $\bar D(\rho)$ intervenant dans le coefficient de diffusion est aussi calculée numériquement. On utilise l'expression {\color{red} reference} pour évaluer $\bar D(\rho)$ en sommant $D(a,b,c)$ le long des trajectoires déterministes. Les trajectoires sont générées par l'algorithme d'Euler, qui est amplement suffisant pour cette tâche. Nous partons du point de l'orbite où la fraction de l'espèce $a$ est maximale et intégrons les équations de la dynamique sur une demi-période seulement, étant donné la symétrie de l'intégrale {\color{red} reference} sous l'échange $b\leftrightarrow c$.
+\par La quantité $\bar D(\rho)$ intervenant dans le coefficient de diffusion est aussi calculée numériquement. On utilise l'expression \ref{D_rho_from_D_abc} pour évaluer $\bar D(\rho)$ en sommant $D(a,b,c)$ le long des trajectoires déterministes. Les trajectoires sont générées par l'algorithme d'Euler, qui est amplement suffisant pour cette tâche. Nous partons du point de l'orbite où la fraction de l'espèce $a$ est maximale et intégrons les équations de la dynamique sur une demi-période seulement, étant donné la symétrie de $D(a,b,c)$ sous l'échange $b\leftrightarrow c$ (voir eq \ref{eval_D_abc}).
 
 \par Pour calculer le point d'une orbite $\rho = abc$ qui maximise $a$, il faut remarquer que quand $a$ est maximal nous avons $b=c$. L'état est donc caractérisé par les équations 
 %
@@ -475,47 +638,53 @@ Bien que les équations polynomiales soient exactement solubles et plutôt que d
 
 \par Notons que la procédure complète pour calculer le temps d'extinction moyen requiert quatres intégrations: trois pour résoudre le problème d'échappement (voir equations \ref{echap_sol_T_finale} et \ref{echap_psi_x}) et une pour calculer $\bar D(\rho)$. Pour accélérer le calcul, nous calculons $\bar D(\rho)$ à l'avance en plusieurs points de l'intervalle $[0,1/27]$. Ensuite, nous calculons $\bar D(\rho)$ en interpolant les valeurs que nous avions enregistrées. Nous interpolons avec une parabole en utilisant les trois points les plus proches de la valeur désirée. Le calcul peut ainsi être effectué en quelques minutes.
 
-\par Au lieu de calculer le temps d'extinction moyen à partir de la valeur exacte de $\bar D(\rho)$, nous pouvons équalement faire une approximation de bruit constant en utilisant un terme de diffusion constant. Le choix $D=0.001$ fait par Frey et al. {\color{red} cite} donne une assez bonne approximation du résultat exact. La figure {\color{red} figure} montre les courbes obtenues par interpolation et approximation de $\bar D(\rho)$ côte à côte. Cette figure reporte également des résultats de simulations du système, dont nous parlons dans la section suivante. L'accord entre les calculs théorique (interpolation) et les simulation est excellent. Cela montre la qualité de l'approximation de moyennage effectué dans la section {\color{red} reference} réduisant le processus à une dimension.
+\par Au lieu de calculer le temps d'extinction moyen à partir de la valeur exacte de $\bar D(\rho)$, nous pouvons équalement faire une approximation de bruit constant en utilisant un terme de diffusion constant. Le choix $D=0.001$ fait par Frey et al. \cite{frey2012} donne une assez bonne approximation du résultat exact. La figure {\color{red} figure} montre les courbes obtenues par interpolation et approximation de $\bar D(\rho)$ côte à côte. Cette figure reporte également des résultats de simulations du système, dont nous parlons dans la section suivante. L'accord entre les calculs théorique (interpolation) et les simulation est excellent. Cela montre la qualité de l'approximation de moyennage effectué dans la section \ref{section_stoch_averaging} pour réduire le processus à une dimension.
 
 {\color{red} Comment évolue la qualité de l'approx avec le nombre d'individus $N$?}
 
-\begin{figure}
-	\centering
-	\begin{subfigure}{.5\textwidth}
-		\centering
-		\includegraphics[width=\linewidth]{figures/D_rho}
-	\end{subfigure}%
-	\begin{subfigure}{.5\textwidth}
-		\centering
-		\includegraphics[width=\linewidth]{figures/extc_time_comparison}
-	\end{subfigure}%
-	\caption{Le graphique de gauche représente la fonction $\bar D(\rho)$ donnant l'intensité de la diffusion dans le processus radial. Le graphique de droite donne le temps d'extinction $t/N$ en fonction de la valeur de $\rho$ au point de départ dans le système. La comparaison est faite des temps d'extinction calculé selon l'expression exacte de $\bar D(\rho)$ ("interp"), une approximation à bruit constant $\bar D(\rho)=0.001$ ("approx") ou encore en faisant des simulations du système ("simul"). Dans ces calculs, le nombre d'individus est $N=1000$. Les résultats des simulations sont moyennés sur $10^4$ réalisations. {\color{red} Séparer les figures, agrandir la figure avec les extinctions}}
-	\label{fig:D_rho_et_extc}
-\end{figure}
-
-\section{Simulation du système}
-
-
 %\begin{figure}
 %	\centering
-%	\begin{subfigure}{.33\textwidth}
+%	\begin{subfigure}{.5\textwidth}
 %		\centering
-%		\includegraphics[width=\linewidth]{figures/p2_avant_bp}
-%		\caption{}
+%		\includegraphics[width=\linewidth]{figures/D_rho}
 %	\end{subfigure}%
-%	\begin{subfigure}{.33\textwidth}
+%	\begin{subfigure}{.5\textwidth}
 %		\centering
-%		\includegraphics[width=\linewidth]{figures/p2_1bp1}
-%		\caption{}
+%		\includegraphics[width=\linewidth]{figures/extc_time_comparison}
 %	\end{subfigure}%
-%	\begin{subfigure}{.33\textwidth}
-%		\centering
-%		\includegraphics[width=\linewidth]{figures/p2_1bp2}
-%		\caption{}
-%	\end{subfigure}
-%	\caption{Représentation graphique des actions des deux applications $b_p$ obtenues à la question 2.3. La figure (a) représente les points du carré unité avant l'action des $b_p$, la figure (b) les même points après l'action de l'application préservant les aires et la figure (c) indique l'action de l'application ne préservant pas les aires.}
-%	\label{fig:p2-graphesbp}
+%	\caption{Le graphique de gauche représente la fonction $\bar D(\rho)$ donnant l'intensité de la diffusion dans le processus radial. Le graphique de droite donne le temps d'extinction $t/N$ en fonction de la valeur de $\rho$ au point de départ dans le système. La comparaison est faite des temps d'extinction calculé selon l'expression exacte de $\bar D(\rho)$ ("interp"), une approximation à bruit constant $\bar D(\rho)=0.001$ ("approx") ou encore en faisant des simulations du système ("simul"). Dans ces calculs, le nombre d'individus est $N=1000$. Les résultats des simulations sont moyennés sur $10^4$ réalisations. {\color{red} Séparer les figures, agrandir la figure avec les extinctions}}
+%	\label{fig:D_rho_et_extc}
 %\end{figure}
+
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=0.9\linewidth]{figures/extc_time_comparison}
+	\caption{Temps d'extinction $t/N$ en fonction de la valeur de $\rho$ au point de départ dans le système. La comparaison est faite des temps d'extinction calculé selon l'expression exacte de $\bar D(\rho)$ ("interp"), une approximation à bruit constant $\bar D(\rho)=0.001$ ("approx") ou encore en faisant des simulations du système ("simul"). Dans ces calculs, le nombre d'individus est $N=1000$. Les résultats des simulations sont moyennés sur $10^4$ réalisations.}
+	\label{fig:T_extc}
+\end{figure}
+
+
+\section{Simulation du système}
+\label{section_simulation}
+
+\par On réalise des simulations numériques du modèle de prédation cyclique en utilisant l'algorithme de Gillespie. Dans cet algorithme, les taux de réactions sont calculés, e.g. $f_{ab} = k AB$, et sommés pour avoir la fréquence à laquelle une réaction quelconque se produit $f_0 = \sum_i\sum_j f_{ij}$. Les réactions sont supposées se produire indépendemment les unes des autres et le temps d'attente avant une réaction suit donc une distribution exponentielle. Ainsi, à chaque réaction effectuée, le temps du système est incrémenté selon
+%
+\begin{equation}\label{gillespie_incr_temps}
+	t \rightarrow t - \frac{1}{f_0} \ln(r),
+\end{equation}
+%
+où $r$ est un nombre aléatoire uniformément distribué entre $0$ et $1$.
+La réaction à effectuer est choisie avec un poids de probabilité donné par le rapport entre le taux pour cette réaction et le taux total, $f_{ij}/f_0$.
+
+\par La condition initiale du système est calculée à partir de l'invariant macroscopique $\rho=abc$, entré comme paramètre de la simulation. Nous démarrons la simulation au point de l'orbite où $a$ est maximal, comme expliqué dans la section précédente, les fractions $a,b,c$ calculées sont bien sûr converties en nombres $A,B,C$ d'individus pour chaque espèce. Nous laissons ensuite la simulation tourner jusqu'à ce que l'on détecte une extinction. Plus précisément, nous testons lors de chaque réaction si la population d'une des espèces est tombée à zéro.
+
+\par A la fin de chaque simulation, nous enregistrons le temps d'extinction observé. Les simulations sont répétées un grand nombre de fois, ici $10^4$ réalisations, afin de calculer le temps d'extinction moyen avec une marge d'erreur raisonablement petite. L'erreur reportée pour la détermination de la moyenne est de un écart-type. L'écart-type sur une moyenne de $M$ réalisations est donnée par l'écart-type d'une réalisation divisé par la racine carrée de $M$:
+%
+\begin{equation}\label{gillespie_err_moyenne}
+	\sigma_M = \frac{\sigma}{\sqrt{M}}.
+\end{equation}
+%
+
 
 		
 \printbibliography
