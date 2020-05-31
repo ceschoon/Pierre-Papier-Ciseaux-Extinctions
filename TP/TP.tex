@@ -82,9 +82,9 @@ de type "pierre papier ciseaux"\\
 \end{split}
 \end{equation}
 %
-où le paramètre $k$ est la fréquence des interactions entre deux individus. Le nombre total d'individus $N=A+B+C$ est conservé dans cette dynamique. Nous avons ici symbolisé le nombre d'individus de chanque espèce par le même symbole $A,B$ ou $C$ employé pour désigner l'espèce.
+où le paramètre $k$ est la fréquence des interactions entre deux individus. Le nombre total d'individus $N=A+B+C$ est conservé dans cette dynamique. Nous avons ici symbolisé le nombre d'individus de chaque espèce par le même symbole $A,B$ ou $C$ employé pour désigner l'espèce.
 
-\par Le sujet que nous allons développer porte sur les extinctions qui se produisent dans ce modèle lorsque le nombre d'induvidus est fini. Dans la limite macroscopique, la présence d'une grandeur conservée fait que l'extinction d'une espèce est impossible. Cependant, l'évolution stochastique d'un nombre fini d'individu mène systématiquement à un extinction, après un temps moyen linéaire en le nombre d'individus. 
+\par Le sujet que nous allons développer porte sur les extinctions qui se produisent dans ce modèle lorsque le nombre d'individus est fini. Dans la limite macroscopique, la présence d'une grandeur conservée fait que l'extinction d'une espèce est impossible. Cependant, l'évolution stochastique d'un nombre fini d'individu mène systématiquement à un extinction, après un temps moyen linéaire en le nombre d'individus. 
 
 \par Nous allons commencer par exposer les détails de la dynamique du système à différents niveaux de description. Ensuite, nous allons chercher à calculer le temps moyen d'extinction dans ce modèle. Pour cela, nous allons réduire le processus stochastique à une variable en utilisant une méthode de moyennage, puis utiliser le formalisme des équations de Fokker-Planck pour calculer le temps d'extinction comme un temps de première sortie d'une région de l'espace des phases. Pour supporter les résultats obtenus, nous les comparons avec des simulations que nous détaillerons à la fin de ce travail. 
 
@@ -125,10 +125,6 @@ où nous avons noté en lettre minuscule la fraction d'individus de chaque espè
 \end{split}
 \end{equation}
 %
-
-{\color{red} Généralisation d espèces}
-
-{\color{red} Deux hamiltoniens H0 et H1 ??}
 
 
 \section{Dynamiques micro et mésoscopiques}
@@ -342,7 +338,7 @@ nous obtenons ainsi
 \end{split} 
 \end{equation}
 %
-La correspondance entre les termes violets, vert et bleus des équations \ref{moyal_redef_temps} et \ref{moyal_dev_eq_FP} est assez facile à voir, en tenant compte des permutations cycliques. Pour les termes cyan, il faut employer la relation de conservation $a+b+c=1$. Par example, les termes en $\partial_a\Psi_t$ dans l'équation \ref{moyal_dev_eq_FP} peuvent être écrits comme
+La correspondance entre les termes violets, vert et bleus des équations \ref{moyal_redef_temps} et \ref{moyal_dev_eq_FP} est assez facile à voir, en tenant compte des permutations cycliques. Pour les termes cyan, il faut employer la relation de conservation $a+b+c=1$. Par exemple, les termes en $\partial_a\Psi_t$ dans l'équation \ref{moyal_dev_eq_FP} peuvent être écrits comme
 %
 \begin{equation}\label{moyal_terme_cyan_corresp}
 	\epsilon\, (b+c)\, \partial_a\Psi_t -2\epsilon\, a\, \partial_a\Psi_t = \epsilon\, (b-a)\, \partial_a\Psi_t + \epsilon\, (c-a)\, \partial_a\Psi_t.
@@ -387,7 +383,7 @@ La relation \ref{dt_rho_contrib_det} montre que le premier terme s'annule. Nous 
 \end{split}
 \end{equation}
 %
-Le deuxième terme cache une dépendance en $N$ à l'intérieur de $\sigma_{ij}$. Pour se rapprocher de la convention employée dans \cite{frey2012}, nous utilisons les matrices $\bold C$ et $\bold B$, indépendentes de $N$, telles que $\boldsymbol \sigma = \frac{1}{\sqrt{N}} \bold C$ et $\bold D = \frac{1}{2N} \bold B$, et $\bold B = \bold C \bold C^T$, pour réécrire notre équation différentielle stochastique sous la forme
+Le deuxième terme cache une dépendance en $N$ à l'intérieur de $\sigma_{ij}$. Pour se rapprocher de la convention employée dans \cite{frey2012}, nous utilisons les matrices $\bold C$ et $\bold B$, indépendantes de $N$, telles que $\boldsymbol \sigma = \frac{1}{\sqrt{N}} \bold C$ et $\bold D = \frac{1}{2N} \bold B$, et $\bold B = \bold C \bold C^T$, pour réécrire notre équation différentielle stochastique sous la forme
 %
 \begin{equation}\label{averaging_drho_4}
 	\dd \rho = -\frac 3N \, \rho \, \dd t + \frac{1}{\sqrt{N}}\, C_{ij} \, \partial_i\rho \, \dd W_j.
@@ -438,7 +434,7 @@ ce qui nous permet d'évaluer $D(a,b,c)$,
 
 \subsection*{Justifications de l'étape de moyennage stochastique}
 
-\par Dans l'article de Frey et al. \cite{frey2012}, peu d'explications sont fournies concernant l'étape de moyennage. Il m'a été difficile de trouver des références dans la littérature détaillant cette procédure. J'identifie deux points qui ne sont pas clairs. Le premier est le passage d'un processus de Wien tridimensionnel à un processus unidimensionnel. Le second est l'étape de moyennage elle-même, c'est à dire la formule \ref{D_rho_from_D_abc}. Pourquoi la moyenne se fait sur la grandeur $D$ et pas une autre, par example sa racine?
+\par Dans l'article de Frey et al. \cite{frey2012}, peu d'explications sont fournies concernant l'étape de moyennage. Il m'a été difficile de trouver des références dans la littérature détaillant cette procédure. J'identifie deux points qui ne sont pas clairs. Le premier est le passage d'un processus de Wien tridimensionnel à un processus unidimensionnel. Le second est l'étape de moyennage elle-même, c'est à dire la formule \ref{D_rho_from_D_abc}. Pourquoi la moyenne se fait sur la grandeur $D$ et pas une autre, par exemple sa racine?
 
 \par Concernant le premier point, il semble possible de réduire la dimension du processus de Wien $\dd W_j$ en remarquant que la matrice $\bold C$ est définie à une multiplication près $\bold C \bold S$, à condition que la matrice $\bold S$ soit orthogonale. Ceci est dû au fait que cette transformation ne modifie pas la matrice de diffusion 
 %
@@ -447,7 +443,7 @@ ce qui nous permet d'évaluer $D(a,b,c)$,
 \end{equation}
 %
 Cette propriété traduit le fait que le terme de diffusion de l'équation différentielle stochastique peut être construite avec un bruit $\dd W_j$ donné dans une base quelconque, sans changer la nature du processus qui en résulte. %La conséquence qui nous intéresse est que l'on peut formuler notre équation dans une base pour laquelle l'un des axes est aligné avec le gradient de $\rho$. Ainsi, {\color{red} CONTINUER}
-La conséquence qui nous intéresse est que l'on peut toujours transormer $\bold C$ en une matrice triangulaire (cf. décomposition QR). Dans une base pour laquelle l'un des axes est aligné avec le gradient de $\rho$, nous avons $\partial_2\rho = \partial_3\rho = 0$ et ainsi
+La conséquence qui nous intéresse est que l'on peut toujours transformer $\bold C$ en une matrice triangulaire (cf. décomposition QR). Dans une base pour laquelle l'un des axes est aligné avec le gradient de $\rho$, nous avons $\partial_2\rho = \partial_3\rho = 0$ et ainsi
 %
 \begin{equation}\label{reduction_dW_1D_1}
 	C_{ij} \, \partial_i\rho \, \dd W_j = 
@@ -501,7 +497,7 @@ qui est la probabilité d'être encore dans l'intervalle au temps $t$, sachant q
 	p(y,t|x,0) = p(y,0|x,-t)
 \end{equation}
 %
-et nous pouvons ainsi formuler l'équation de Fokker-Planck réverse en substituant la probabilité conditionelle dans l'équation originale,
+et nous pouvons ainsi formuler l'équation de Fokker-Planck réverse en substituant la probabilité conditionnelle dans l'équation originale,
 %
 \begin{equation}\label{echap_eq_FP_backward}
 	\partial_t p_t(y,t|x,0) = A(x)\, \partial_x p_t(y,t|x,0) + \frac 12 \, B(x)\, \partial_x^2 p_t(y,t|x,0).
@@ -636,9 +632,9 @@ en isolant $a$ on obtient une équation cubique
 %
 Bien que les équations polynomiales soient exactement solubles et plutôt que d'utiliser un algorithme de résolution de polynômes, nous procédons simplement de manière itérative pour recherche la solution de cette équation. En partant de $a=1$, nous diminuons la valeur de $a$ par petit à petit jusqu'à ce que les deux membres de l'équation s'équilibrent. Lorsque le point d'équilibre est passé, nous rebroussons chemin et augmentons maintenant $a$ par pas deux fois plus petits que précédemment. Nous répétons cette procédure jusqu'à ce que le pas soit suffisamment petit.
 
-\par Notons que la procédure complète pour calculer le temps d'extinction moyen requiert quatres intégrations: trois pour résoudre le problème d'échappement (voir equations \ref{echap_sol_T_finale} et \ref{echap_psi_x}) et une pour calculer $\bar D(\rho)$. Pour accélérer le calcul, nous calculons $\bar D(\rho)$ à l'avance en plusieurs points de l'intervalle $[0,1/27]$. Ensuite, nous calculons $\bar D(\rho)$ en interpolant les valeurs que nous avions enregistrées. Nous interpolons avec une parabole en utilisant les trois points les plus proches de la valeur désirée. Le calcul peut ainsi être effectué en quelques minutes.
+\par Notons que la procédure complète pour calculer le temps d'extinction moyen requiert quatre intégrations: trois pour résoudre le problème d'échappement (voir équations \ref{echap_sol_T_finale} et \ref{echap_psi_x}) et une pour calculer $\bar D(\rho)$. Pour accélérer le calcul, nous calculons $\bar D(\rho)$ à l'avance en plusieurs points de l'intervalle $[0,1/27]$. Ensuite, nous calculons $\bar D(\rho)$ en interpolant les valeurs que nous avions enregistrées. Nous interpolons avec une parabole en utilisant les trois points les plus proches de la valeur désirée. Le calcul peut ainsi être effectué en quelques minutes.
 
-\par Au lieu de calculer le temps d'extinction moyen à partir de la valeur exacte de $\bar D(\rho)$, nous pouvons équalement faire une approximation de bruit constant en utilisant un terme de diffusion constant. Le choix $D=0.001$ fait par Frey et al. \cite{frey2012} donne une assez bonne approximation du résultat exact. La figure \ref{fig:T_extc} montre les courbes obtenues par interpolation et approximation de $\bar D(\rho)$ côte à côte. Cette figure reporte également des résultats de simulations du système, dont nous parlons dans la section suivante. L'accord entre les calculs théorique (interpolation) et les simulation est excellent. Cela montre la qualité de l'approximation de moyennage effectué dans la section \ref{section_stoch_averaging} pour réduire le processus à une dimension.
+\par Au lieu de calculer le temps d'extinction moyen à partir de la valeur exacte de $\bar D(\rho)$, nous pouvons également faire une approximation de bruit constant en utilisant un terme de diffusion constant. Le choix $D=0.001$ fait par Frey et al. \cite{frey2012} donne une assez bonne approximation du résultat exact. La figure \ref{fig:T_extc} montre les courbes obtenues par interpolation et approximation de $\bar D(\rho)$ côte à côte. Cette figure reporte également des résultats de simulations du système, dont nous parlons dans la section suivante. L'accord entre les calculs théorique (interpolation) et les simulation est excellent. Cela montre la qualité de l'approximation de moyennage effectué dans la section \ref{section_stoch_averaging} pour réduire le processus à une dimension.
 
 {\color{red} Comment évolue la qualité de l'approx avec le nombre d'individus $N$?}
 
@@ -669,7 +665,7 @@ Bien que les équations polynomiales soient exactement solubles et plutôt que d
 
 {\color{red} plot d'une trajectoire ?}
 
-\par On réalise des simulations numériques du modèle de prédation cyclique en utilisant l'algorithme de Gillespie. Dans cet algorithme, les taux de réactions sont calculés, e.g. $f_{ab} = k AB$, et sommés pour avoir la fréquence à laquelle une réaction quelconque se produit $f_0 = \sum_i\sum_j f_{ij}$. Les réactions sont supposées se produire indépendemment les unes des autres et le temps d'attente avant une réaction suit donc une distribution exponentielle. Ainsi, à chaque réaction effectuée, le temps du système est incrémenté selon
+\par On réalise des simulations numériques du modèle de prédation cyclique en utilisant l'algorithme de Gillespie. Dans cet algorithme, les taux de réactions sont calculés, e.g. $f_{ab} = k AB$, et sommés pour avoir la fréquence à laquelle une réaction quelconque se produit $f_0 = \sum_i\sum_j f_{ij}$. Les réactions sont supposées se produire indépendamment les unes des autres et le temps d'attente avant une réaction suit donc une distribution exponentielle. Ainsi, à chaque réaction effectuée, le temps du système est incrémenté selon
 %
 \begin{equation}\label{gillespie_incr_temps}
 	t \rightarrow t - \frac{1}{f_0} \ln(r),
@@ -680,7 +676,7 @@ La réaction à effectuer est choisie avec un poids de probabilité donné par l
 
 \par La condition initiale du système est calculée à partir de l'invariant macroscopique $\rho=abc$, entré comme paramètre de la simulation. Nous démarrons la simulation au point de l'orbite où $a$ est maximal, comme expliqué dans la section précédente, les fractions $a,b,c$ calculées sont bien sûr converties en nombres $A,B,C$ d'individus pour chaque espèce. Nous laissons ensuite la simulation tourner jusqu'à ce que l'on détecte une extinction. Plus précisément, nous testons lors de chaque réaction si la population d'une des espèces est tombée à zéro.
 
-\par A la fin de chaque simulation, nous enregistrons le temps d'extinction observé. Les simulations sont répétées un grand nombre de fois, ici $10^4$ réalisations, afin de calculer le temps d'extinction moyen avec une marge d'erreur raisonablement petite. L'erreur reportée pour la détermination de la moyenne est de un écart-type. L'écart-type sur une moyenne de $M$ réalisations est donnée par l'écart-type d'une réalisation divisé par la racine carrée de $M$:
+\par A la fin de chaque simulation, nous enregistrons le temps d'extinction observé. Les simulations sont répétées un grand nombre de fois, ici $10^4$ réalisations, afin de calculer le temps d'extinction moyen avec une marge d'erreur raisonnablement petite. L'erreur reportée pour la détermination de la moyenne est de un écart-type. L'écart-type sur une moyenne de $M$ réalisations est donnée par l'écart-type d'une réalisation divisé par la racine carrée de $M$:
 %
 \begin{equation}\label{gillespie_err_moyenne}
 	\sigma_M = \frac{\sigma}{\sqrt{M}}.
