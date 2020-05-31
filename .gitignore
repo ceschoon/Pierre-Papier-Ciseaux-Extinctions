@@ -1,6 +1,7 @@
 literature/*
 code/*
 
+!code/*.sh
 !code/*.h
 !code/*.cpp
 !code/comparison_extc
