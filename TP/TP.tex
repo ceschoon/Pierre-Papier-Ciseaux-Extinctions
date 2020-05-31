@@ -92,7 +92,7 @@ où le paramètre $k$ est la fréquence des interactions entre deux individus. L
 \section{Dynamique macroscopique}
 \label{section_macro}
 
-\par Dans limite macroscopique, i.e. $N\rightarrow \infty$, le système obéit aux équations dynamiques {\color{red}montrer limite eq maîtresse/FP ?}
+\par Dans limite macroscopique, i.e. $N\rightarrow \infty$, le système obéit aux équations dynamiques
 %
 \begin{equation}\label{dyn_macro}
 \begin{split}
@@ -438,7 +438,7 @@ ce qui nous permet d'évaluer $D(a,b,c)$,
 
 \subsection*{Justifications de l'étape de moyennage stochastique}
 
-\par Dans l'article de Frey et al. \cite{frey2012}, peu d'explications sont fournies concernant l'étape de moyennage. Il m'a été difficile de trouver des références dans la littérature détaillant cette procédure. J'identifie deux points qui ne sont pas clairs. Le premier est le passage d'un processus de Wien tridimensionnel à un processus unidimensionnel. Le second est l'étape de moyennage elle-même, c'est à dire la formule {\color{red}reference}. Pourquoi la moyenne se fait sur la grandeur $D$ et pas une autre, par example sa racine?
+\par Dans l'article de Frey et al. \cite{frey2012}, peu d'explications sont fournies concernant l'étape de moyennage. Il m'a été difficile de trouver des références dans la littérature détaillant cette procédure. J'identifie deux points qui ne sont pas clairs. Le premier est le passage d'un processus de Wien tridimensionnel à un processus unidimensionnel. Le second est l'étape de moyennage elle-même, c'est à dire la formule \ref{D_rho_from_D_abc}. Pourquoi la moyenne se fait sur la grandeur $D$ et pas une autre, par example sa racine?
 
 \par Concernant le premier point, il semble possible de réduire la dimension du processus de Wien $\dd W_j$ en remarquant que la matrice $\bold C$ est définie à une multiplication près $\bold C \bold S$, à condition que la matrice $\bold S$ soit orthogonale. Ceci est dû au fait que cette transformation ne modifie pas la matrice de diffusion 
 %
@@ -501,26 +501,26 @@ qui est la probabilité d'être encore dans l'intervalle au temps $t$, sachant q
 	p(y,t|x,0) = p(y,0|x,-t)
 \end{equation}
 %
-et nous pouvons ainsi formuler l'équation de Fokker-Planck réverse en substituant la probabilité conditionelle dans l'équation originale {\color{red} clarifier?} 
+et nous pouvons ainsi formuler l'équation de Fokker-Planck réverse en substituant la probabilité conditionelle dans l'équation originale,
 %
 \begin{equation}\label{echap_eq_FP_backward}
-	\partial_t p_t(y,t|x,0) = -A(x)\, \partial_x p_t(y,t|x,0) + \frac 12 \, B(x)\, \partial_x^2 p_t(y,t|x,0).
+	\partial_t p_t(y,t|x,0) = A(x)\, \partial_x p_t(y,t|x,0) + \frac 12 \, B(x)\, \partial_x^2 p_t(y,t|x,0).
 \end{equation}
 %
 À la différence de l'équation de Fokker-Planck directe, l'équation réverse voit les dérivées agir directement sur la densité de probabilité. Cela nous permet de formuler une équation différentielle pour une observable, comme $G(x,t)$. En intégrant sur $y$, l'intégrale passe sous les dérivées en $x$,
 %
 \begin{equation}\label{echao_int_FP_backward}
-	\partial_t \int_a^b \dd y \, p(y,t|x,0) = - A(x) \, \partial_x \int_a^b \dd y \, p(y,t|x,0) + \frac 12 \, B(x) \, \partial_x^2 \int_a^b \dd y \, p(y,t|x,0),
+	\partial_t \int_a^b \dd y \, p(y,t|x,0) = A(x) \, \partial_x \int_a^b \dd y \, p(y,t|x,0) + \frac 12 \, B(x) \, \partial_x^2 \int_a^b \dd y \, p(y,t|x,0),
 \end{equation}
 %
 et nous obtenons une équation différentielle pour $G(x,t)$,
 %
 \begin{equation}\label{echap_eq_G}
-	\partial_t G(x,t) = - A(x) \, \partial_x G(x,t) + \frac 12 \, B(x) \, \partial_x^2 G(x,t).
+	\partial_t G(x,t) = A(x) \, \partial_x G(x,t) + \frac 12 \, B(x) \, \partial_x^2 G(x,t).
 \end{equation}
 %
 
-\par Le temps moyen de première sortie est une fonction de la position de départ dans l'intervalle. Il est donné par {\color{red} clarifier?}
+\par Le temps moyen de première sortie est une fonction de la position de départ dans l'intervalle. Il est donné par
 %
 \begin{equation}\label{echap_expr_Tx}
 	T(x) = - \int_0^\infty t \, \partial_t G(x,t) \, \dd t \, = \int_0^\infty  G(x,t) \, \dd t \, .
@@ -529,17 +529,17 @@ et nous obtenons une équation différentielle pour $G(x,t)$,
 En intégrant l'équation pour $G(x,t)$ par rapport au temps,
 %
 \begin{equation}\label{echap_int_eq_G_1}
-	 - \int_0^\infty A(x) \, \partial_x G(x,t) \, \dd t + \frac 12 \int_0^\infty \, B(x) \, \partial_x^2 G(x,t) \, \dd t = \int_0^\infty \partial_t G(x,t) \, \dd t \, ,
+	 \int_0^\infty A(x) \, \partial_x G(x,t) \, \dd t + \frac 12 \int_0^\infty \, B(x) \, \partial_x^2 G(x,t) \, \dd t = \int_0^\infty \partial_t G(x,t) \, \dd t \, ,
 \end{equation}
 %
 \begin{equation}\label{echap_int_eq_G_2}
-	- A(x) \, \partial_x \int_0^\infty G(x,t) \, \dd t + \frac 12 \, B(x) \, \partial_x^2 \int_0^\infty G(x,t) \, \dd t = G(x,\infty) - G(x,0) \, ,
+	A(x) \, \partial_x \int_0^\infty G(x,t) \, \dd t + \frac 12 \, B(x) \, \partial_x^2 \int_0^\infty G(x,t) \, \dd t = G(x,\infty) - G(x,0) \, ,
 \end{equation}
 %
 on obtient une équation différentielle pour $T(x)$,
 %
 \begin{equation}\label{echap_eq_T}
-	-A(x) \, \partial_x T(x) + \frac 12 \, B(x) \, \partial_x^2 T(x) = -1.
+	A(x) \, \partial_x T(x) + \frac 12 \, B(x) \, \partial_x^2 T(x) = -1.
 \end{equation}
 %
 Le membre de droite de l'équation \ref{echap_int_eq_G_2} s'évalue à $-1$ car au temps initial la particule est dans l'intervalle avec probabilité $1$ et donc $G(x,0)=1$. De même, dans la limite de temps infini, la particule fini tôt ou tard par être absorbée par la barrière $a$, ainsi $G(x,\infty)=0$. 
@@ -549,7 +549,7 @@ Le membre de droite de l'équation \ref{echap_int_eq_G_2} s'évalue à $-1$ car 
 \par La résolution de l'équation différentielle pour $T(x)$ peut se faire par intégration directe. En posant $Y(x) = \partial_x T(x)$, l'équation \ref{echap_eq_T} devient 
 %
 \begin{equation}\label{echap_eq_T_int_directe}
-	\partial_x Y(x) - \frac{2A(x)}{B(x)} Y(x) = -\frac{2}{B(x)}.
+	\partial_x Y(x) + \frac{2A(x)}{B(x)} Y(x) = -\frac{2}{B(x)}.
 \end{equation}
 %
 La solution
@@ -638,7 +638,7 @@ Bien que les équations polynomiales soient exactement solubles et plutôt que d
 
 \par Notons que la procédure complète pour calculer le temps d'extinction moyen requiert quatres intégrations: trois pour résoudre le problème d'échappement (voir equations \ref{echap_sol_T_finale} et \ref{echap_psi_x}) et une pour calculer $\bar D(\rho)$. Pour accélérer le calcul, nous calculons $\bar D(\rho)$ à l'avance en plusieurs points de l'intervalle $[0,1/27]$. Ensuite, nous calculons $\bar D(\rho)$ en interpolant les valeurs que nous avions enregistrées. Nous interpolons avec une parabole en utilisant les trois points les plus proches de la valeur désirée. Le calcul peut ainsi être effectué en quelques minutes.
 
-\par Au lieu de calculer le temps d'extinction moyen à partir de la valeur exacte de $\bar D(\rho)$, nous pouvons équalement faire une approximation de bruit constant en utilisant un terme de diffusion constant. Le choix $D=0.001$ fait par Frey et al. \cite{frey2012} donne une assez bonne approximation du résultat exact. La figure {\color{red} figure} montre les courbes obtenues par interpolation et approximation de $\bar D(\rho)$ côte à côte. Cette figure reporte également des résultats de simulations du système, dont nous parlons dans la section suivante. L'accord entre les calculs théorique (interpolation) et les simulation est excellent. Cela montre la qualité de l'approximation de moyennage effectué dans la section \ref{section_stoch_averaging} pour réduire le processus à une dimension.
+\par Au lieu de calculer le temps d'extinction moyen à partir de la valeur exacte de $\bar D(\rho)$, nous pouvons équalement faire une approximation de bruit constant en utilisant un terme de diffusion constant. Le choix $D=0.001$ fait par Frey et al. \cite{frey2012} donne une assez bonne approximation du résultat exact. La figure \ref{fig:T_extc} montre les courbes obtenues par interpolation et approximation de $\bar D(\rho)$ côte à côte. Cette figure reporte également des résultats de simulations du système, dont nous parlons dans la section suivante. L'accord entre les calculs théorique (interpolation) et les simulation est excellent. Cela montre la qualité de l'approximation de moyennage effectué dans la section \ref{section_stoch_averaging} pour réduire le processus à une dimension.
 
 {\color{red} Comment évolue la qualité de l'approx avec le nombre d'individus $N$?}
 
@@ -666,6 +666,8 @@ Bien que les équations polynomiales soient exactement solubles et plutôt que d
 
 \section{Simulation du système}
 \label{section_simulation}
+
+{\color{red} plot d'une trajectoire ?}
 
 \par On réalise des simulations numériques du modèle de prédation cyclique en utilisant l'algorithme de Gillespie. Dans cet algorithme, les taux de réactions sont calculés, e.g. $f_{ab} = k AB$, et sommés pour avoir la fréquence à laquelle une réaction quelconque se produit $f_0 = \sum_i\sum_j f_{ij}$. Les réactions sont supposées se produire indépendemment les unes des autres et le temps d'attente avant une réaction suit donc une distribution exponentielle. Ainsi, à chaque réaction effectuée, le temps du système est incrémenté selon
 %

@@ -1,3 +1,4 @@
+literature/*
 code/*
 
 !code/*.h
