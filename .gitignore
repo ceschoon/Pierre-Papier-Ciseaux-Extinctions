@@ -4,4 +4,5 @@ code/*
 !code/*.h
 !code/*.cpp
 !code/comparison_extc
+!code/quality_theo_with_N
 

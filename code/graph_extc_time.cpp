@@ -29,6 +29,7 @@ using namespace std;
 /////////////////////////// global parameters //////////////////////////////
 
 int N = 1000;
+double D_approx = 1e-3;
 
 // the precision of the interpolation should be big enough compared to
 // than the precision of the integrations in the escape problem
@@ -39,7 +40,7 @@ double A_exact(double rho) {return -3.0/N * rho;}
 
 double B_comput(double rho) {return  1.0/N * compute_D_rho(rho);}
 double B_interp(double rho) {return  1.0/N * D_rho_interpol.eval(rho);} 
-double B_approx(double rho) {return  1.0/N * 0.001;}
+double B_approx(double rho) {return  1.0/N * D_approx;}
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -59,6 +60,25 @@ int main(int argc, char **argv)
 		if ((string(argv[i])=="--comput")) B = &B_comput;
 		if ((string(argv[i])=="--interp")) B = &B_interp;
 		if ((string(argv[i])=="--approx")) B = &B_approx;
+	}
+	
+	//////////////////////////// other options /////////////////////////////
+	
+	for (int i=1; i<argc; i++)
+	{
+		if ((string(argv[i])=="--N")) 
+		{
+			if (argc > i+1) N = stoi(string(argv[i+1]));
+			else 
+				throw runtime_error("You must specify the value of N, e.g. --N 100");
+		}
+		
+		if ((string(argv[i])=="--D_approx")) 
+		{
+			if (argc > i+1) D_approx = stod(string(argv[i+1]));
+			else 
+				throw runtime_error("You must specify the value of D_approx, e.g. --D_approx 1e-3");
+		}
 	}
 	
 	////////////////////////// global parameters ///////////////////////////
