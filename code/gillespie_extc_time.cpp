@@ -6,7 +6,8 @@
 //    It has been designed for an exam of a course on stochastic          //
 //    processes -- PHYS-F446 (academic year 2019-2020) at ULB             //
 //                                                                        //
-//    Compile with $ g++ -O3 -fopenmp -o gillespie gillespie.cpp          //
+//    Compile with $ g++ -O3 -fopenmp -o gillespie_extc_time \            //
+//                   gillespie_extc_time.cpp                              //
 //                                                                        //
 //    Author: Cedric Schoonen                                             //
 //                                                                        //
@@ -94,6 +95,9 @@ int main(int argc, char **argv)
 	{
 		if ((string(argv[i])=="--script")) 
 		{
+			// script mode: returns data in a single line
+			// so that the output can be appended to a data file
+			
 			script_mode = true;
 			cout_enabled = false;
 			cout << fixed << setprecision(8);

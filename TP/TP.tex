@@ -636,22 +636,6 @@ Bien que les équations polynomiales soient exactement solubles et plutôt que d
 
 \par Au lieu de calculer le temps d'extinction moyen à partir de la valeur exacte de $\bar D(\rho)$, nous pouvons également faire une approximation de bruit constant en utilisant un terme de diffusion constant. Le choix $D=0.001$ fait par Frey et al. \cite{frey2012} donne une assez bonne approximation du résultat exact. La figure \ref{fig:T_extc} montre les courbes obtenues par interpolation et approximation de $\bar D(\rho)$ côte à côte. Cette figure reporte également des résultats de simulations du système, dont nous parlons dans la section suivante. L'accord entre les calculs théorique (interpolation) et les simulation est excellent. Cela montre la qualité de l'approximation de moyennage effectué dans la section \ref{section_stoch_averaging} pour réduire le processus à une dimension.
 
-{\color{red} Comment évolue la qualité de l'approx avec le nombre d'individus $N$?}
-
-%\begin{figure}
-%	\centering
-%	\begin{subfigure}{.5\textwidth}
-%		\centering
-%		\includegraphics[width=\linewidth]{figures/D_rho}
-%	\end{subfigure}%
-%	\begin{subfigure}{.5\textwidth}
-%		\centering
-%		\includegraphics[width=\linewidth]{figures/extc_time_comparison}
-%	\end{subfigure}%
-%	\caption{Le graphique de gauche représente la fonction $\bar D(\rho)$ donnant l'intensité de la diffusion dans le processus radial. Le graphique de droite donne le temps d'extinction $t/N$ en fonction de la valeur de $\rho$ au point de départ dans le système. La comparaison est faite des temps d'extinction calculé selon l'expression exacte de $\bar D(\rho)$ ("interp"), une approximation à bruit constant $\bar D(\rho)=0.001$ ("approx") ou encore en faisant des simulations du système ("simul"). Dans ces calculs, le nombre d'individus est $N=1000$. Les résultats des simulations sont moyennés sur $10^4$ réalisations. {\color{red} Séparer les figures, agrandir la figure avec les extinctions}}
-%	\label{fig:D_rho_et_extc}
-%\end{figure}
-
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=0.9\linewidth]{figures/extc_time_comparison}
@@ -663,7 +647,12 @@ Bien que les équations polynomiales soient exactement solubles et plutôt que d
 \section{Simulation du système}
 \label{section_simulation}
 
-{\color{red} plot d'une trajectoire ?}
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=0.7\linewidth]{figures/portrait_trajectory}
+	\caption{Exemple de trajectoire générée par l'algorithme de Gillespie pour $N=200$ individus.}
+	\label{fig:portrait}
+\end{figure}
 
 \par On réalise des simulations numériques du modèle de prédation cyclique en utilisant l'algorithme de Gillespie. Dans cet algorithme, les taux de réactions sont calculés, e.g. $f_{ab} = k AB$, et sommés pour avoir la fréquence à laquelle une réaction quelconque se produit $f_0 = \sum_i\sum_j f_{ij}$. Les réactions sont supposées se produire indépendamment les unes des autres et le temps d'attente avant une réaction suit donc une distribution exponentielle. Ainsi, à chaque réaction effectuée, le temps du système est incrémenté selon
 %

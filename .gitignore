@@ -5,4 +5,5 @@ code/*
 !code/*.cpp
 !code/comparison_extc
 !code/quality_theo_with_N
+!code/portrait
 
