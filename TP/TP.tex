@@ -84,9 +84,9 @@ de type "pierre papier ciseaux"\\
 %
 où le paramètre $k$ est la fréquence des interactions entre deux individus. Le nombre total d'individus $N=A+B+C$ est conservé dans cette dynamique. Nous avons ici symbolisé le nombre d'individus de chaque espèce par le même symbole $A,B$ ou $C$ employé pour désigner l'espèce.
 
-\par Le sujet que nous allons développer porte sur les extinctions qui se produisent dans ce modèle lorsque le nombre d'individus est fini. Dans la limite macroscopique, la présence d'une grandeur conservée fait que l'extinction d'une espèce est impossible. Cependant, l'évolution stochastique d'un nombre fini d'individu mène systématiquement à un extinction, après un temps moyen linéaire en le nombre d'individus. 
+\par Le sujet que nous allons développer porte sur les extinctions qui se produisent dans ce modèle lorsque le nombre d'individus est fini. Dans la limite macroscopique, la présence d'une grandeur conservée fait que l'extinction d'une espèce est impossible. Cependant, l'évolution stochastique d'un nombre fini d'individu mène systématique-ment à un extinction, après un temps moyen linéaire en le nombre d'individus. 
 
-\par Nous allons commencer par exposer les détails de la dynamique du système à différents niveaux de description. Ensuite, nous allons chercher à calculer le temps moyen d'extinction dans ce modèle. Pour cela, nous allons réduire le processus stochastique à une variable en utilisant une méthode de moyennage, puis utiliser le formalisme des équations de Fokker-Planck pour calculer le temps d'extinction comme un temps de première sortie d'une région de l'espace des phases. Pour supporter les résultats obtenus, nous les comparons avec des simulations que nous détaillerons à la fin de ce travail. 
+\par Nous allons commencer par exposer les détails de la dynamique du système à différents niveaux de description. Ensuite, nous allons chercher à calculer le temps moyen d'extinction dans ce modèle. Pour cela, nous allons d'abord réduire le processus stochastique à une variable en utilisant une méthode de moyennage, en suivant la méthode employée dans \cite{frey2012}. Ensuite, nous allons utiliser le formalisme des équations de Fokker-Planck pour calculer le temps d'extinction comme un temps de première sortie d'une région de l'espace des phases. Pour supporter les résultats obtenus, nous les comparerons avec des simulations que nous détaillerons à la fin de ce travail. 
 
 
 \section{Dynamique macroscopique}
@@ -153,7 +153,7 @@ L'équation maîtresse associée est
 \end{split}
 \end{equation}
 % 
-Au contraire de la dynamique macroscopique déterministe, l'évolution microscopique ne préserve pas l'invariant $\rho = abc = ABC/N^3$. Le caractère aléatoire des trajectoires microscopiques mène finalement à l'extinction d'une des trois espèces, qui est irréversible. 
+Au contraire de la dynamique macroscopique déterministe, l'évolution microscopique ne préserve pas l'invariant $\rho = abc = ABC/N^3$. Le caractère aléatoire des trajectoires microscopiques mène finalement à l'extinction d'une des trois espèces, qui est irréver-sible. 
 
 \par En développant l'équation maîtresse en puissances de $\epsilon = 1/N$, on déduit l'équation de Fokker-Planck 
 %
@@ -232,7 +232,7 @@ Ainsi,
 \section{Développement de Kramers-Moyal de l'équation maîtresse}
 \label{section_kramers_moyal}
 
-\par On commence par exprimer l'équation maîtresse (eq \ref{eq_maitresse}) avec les variables "mésoscopiques" $\Psi_t$, $a,b,c$ et $\epsilon=1/N$. On obtient
+\par On commence par exprimer l'équation maîtresse (eq \ref{eq_maitresse}) avec les variables "mésosco-piques" $\Psi_t$, $a,b,c$ et $\epsilon=1/N$. On obtient
 %
 \begin{equation}\label{eq_maitresse_minuscules}
 \begin{split}
@@ -634,13 +634,28 @@ Bien que les équations polynomiales soient exactement solubles et plutôt que d
 
 \par Notons que la procédure complète pour calculer le temps d'extinction moyen requiert quatre intégrations: trois pour résoudre le problème d'échappement (voir équations \ref{echap_sol_T_finale} et \ref{echap_psi_x}) et une pour calculer $\bar D(\rho)$. Pour accélérer le calcul, nous calculons $\bar D(\rho)$ à l'avance en plusieurs points de l'intervalle $[0,1/27]$. Ensuite, nous calculons $\bar D(\rho)$ en interpolant les valeurs que nous avions enregistrées. Nous interpolons avec une parabole en utilisant les trois points les plus proches de la valeur désirée. Le calcul peut ainsi être effectué en quelques minutes.
 
-\par Au lieu de calculer le temps d'extinction moyen à partir de la valeur exacte de $\bar D(\rho)$, nous pouvons également faire une approximation de bruit constant en utilisant un terme de diffusion constant. Le choix $D=0.001$ fait par Frey et al. \cite{frey2012} donne une assez bonne approximation du résultat exact. La figure \ref{fig:T_extc} montre les courbes obtenues par interpolation et approximation de $\bar D(\rho)$ côte à côte. Cette figure reporte également des résultats de simulations du système, dont nous parlons dans la section suivante. L'accord entre les calculs théorique (interpolation) et les simulation est excellent. Cela montre la qualité de l'approximation de moyennage effectué dans la section \ref{section_stoch_averaging} pour réduire le processus à une dimension.
+\par Au lieu de calculer le temps d'extinction moyen à partir de la valeur exacte de $\bar D(\rho)$, nous pouvons également faire une approximation de bruit constant en utilisant un terme de diffusion constant. Le choix $D=0.001$ fait par Frey et al. \cite{frey2012} donne une assez bonne approximation du résultat exact. La figure \ref{fig:T_extc} montre les courbes obtenues par interpolation et approximation de $\bar D(\rho)$ côte à côte. Cette figure reporte également des résultats de simulations du système, dont nous parlons dans la section suivante. L'accord entre les calculs théorique (interpolation) et les simulation est très bon pour $N=1000$. Cela montre la qualité de l'approximation de moyennage effectué dans la section \ref{section_stoch_averaging} pour réduire le processus à une dimension. La figure \ref{fig:qualite_selon_N_D} montre le même graphique pour un plus petit nombre d'individus, $N=100$, pour lequel l'accord avec la simulation commence à se dégrader. Cette figure montre aussi un graphe obtenu pour une autre approximation de bruit constant, avec $\bar D(\rho) = 8\times 10^{-4}$, afin de donner une idée de la sensibilité d'une telle approximation par rapport à la valeur choisie pour le bruit. 
 
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=0.9\linewidth]{figures/extc_time_comparison}
-	\caption{Temps d'extinction $t/N$ en fonction de la valeur de $\rho$ au point de départ dans le système. La comparaison est faite des temps d'extinction calculé selon l'expression exacte de $\bar D(\rho)$ ("interp"), une approximation à bruit constant $\bar D(\rho)=0.001$ ("approx") ou encore en faisant des simulations du système ("simul"). Dans ces calculs, le nombre d'individus est $N=1000$. Les résultats des simulations sont moyennés sur $10^4$ réalisations.}
+	\caption{Temps d'extinction en fonction de la valeur de $\rho$ au point de départ dans le système. L'unité de temps est celle du temps microscopique (celui de l'équation maîtresse). Pour retrouver le temps en unités mésoscopiques (celui de l'équation de Fokker-Planck), il faut multiplier par $N$. La comparaison est faite des temps d'extinction calculé selon l'expression exacte de $\bar D(\rho)$ ("interp"), une approximation à bruit constant $\bar D(\rho)=0.001$ ("approx") ou encore en faisant des simulations du système ("simul"). Dans ces calculs, le nombre d'individus est $N=1000$. Les résultats des simulations sont moyennés sur $10^4$ réalisations.}
 	\label{fig:T_extc}
+\end{figure}
+
+
+\begin{figure}[t]
+	\centering
+	\begin{subfigure}{0.5\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/extc_time_comparison_N100}
+	\end{subfigure}%
+	\begin{subfigure}{0.5\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/extc_time_comparison_approx_00008}
+	\end{subfigure}
+	\caption{À gauche, temps d'extinction calculés pour $N=100$. À droite, temps d'extinction pour $N=1000$, en utilisant une autre valeur pour l'approximation de bruit constant, $\bar D(\rho) = 8\times 10^{-4}$.}
+	\label{fig:qualite_selon_N_D}
 \end{figure}
 
 
@@ -650,8 +665,8 @@ Bien que les équations polynomiales soient exactement solubles et plutôt que d
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=0.7\linewidth]{figures/portrait_trajectory}
-	\caption{Exemple de trajectoire générée par l'algorithme de Gillespie pour $N=200$ individus.}
-	\label{fig:portrait}
+	\caption{Exemple de trajectoire générée par l'algorithme de Gillespie pour $N=200$ individus. L'enregistrement de la position est effectué toutes les $20$ réactions.}
+	\label{fig:portrait_trajectoire}
 \end{figure}
 
 \par On réalise des simulations numériques du modèle de prédation cyclique en utilisant l'algorithme de Gillespie. Dans cet algorithme, les taux de réactions sont calculés, e.g. $f_{ab} = k AB$, et sommés pour avoir la fréquence à laquelle une réaction quelconque se produit $f_0 = \sum_i\sum_j f_{ij}$. Les réactions sont supposées se produire indépendamment les unes des autres et le temps d'attente avant une réaction suit donc une distribution exponentielle. Ainsi, à chaque réaction effectuée, le temps du système est incrémenté selon
