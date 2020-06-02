@@ -84,7 +84,7 @@ de type "pierre papier ciseaux"\\
 %
 où le paramètre $k$ est la fréquence des interactions entre deux individus. Le nombre total d'individus $N=A+B+C$ est conservé dans cette dynamique. Nous avons ici symbolisé le nombre d'individus de chaque espèce par le même symbole $A,B$ ou $C$ employé pour désigner l'espèce.
 
-\par Le sujet que nous allons développer porte sur les extinctions qui se produisent dans ce modèle lorsque le nombre d'individus est fini. Dans la limite macroscopique, la présence d'une grandeur conservée fait que l'extinction d'une espèce est impossible. Cependant, l'évolution stochastique d'un nombre fini d'individu mène systématique-ment à un extinction, après un temps moyen linéaire en le nombre d'individus. 
+\par Le sujet que nous allons développer porte sur les extinctions qui se produisent dans ce modèle lorsque le nombre d'individus est fini. Dans la limite macroscopique, la présence d'une grandeur conservée fait que l'extinction d'une espèce est impossible. Cependant, l'évolution stochastique d'un nombre fini d'individu mène systématique-ment à une extinction, après un temps moyen linéaire en le nombre d'individus. 
 
 \par Nous allons commencer par exposer les détails de la dynamique du système à différents niveaux de description. Ensuite, nous allons chercher à calculer le temps moyen d'extinction dans ce modèle. Pour cela, nous allons d'abord réduire le processus stochastique à une variable en utilisant une méthode de moyennage, en suivant la méthode employée dans \cite{frey2012}. Ensuite, nous allons utiliser le formalisme des équations de Fokker-Planck pour calculer le temps d'extinction comme un temps de première sortie d'une région de l'espace des phases. Pour supporter les résultats obtenus, nous les comparerons avec des simulations que nous détaillerons à la fin de ce travail. 
 
@@ -92,7 +92,7 @@ où le paramètre $k$ est la fréquence des interactions entre deux individus. L
 \section{Dynamique macroscopique}
 \label{section_macro}
 
-\par Dans limite macroscopique, i.e. $N\rightarrow \infty$, le système obéit aux équations dynamiques
+\par Dans la limite macroscopique, i.e. $N\rightarrow \infty$, le système obéit aux équations dynamiques
 %
 \begin{equation}\label{dyn_macro}
 \begin{split}
@@ -114,14 +114,14 @@ où nous avons noté en lettre minuscule la fraction d'individus de chaque espè
 
 
 
-\par La dynamique macroscopique possède deux invariants, ce qui le rend intégrable exactement. Le premier est trivial et est donné par la loi de conservation $a+b+c=1$. Le second est le produit $\rho = abc$, en effet
+\par La dynamique macroscopique possède deux invariants, ce qui la rend intégrable exactement. Le premier est trivial et est donné par la loi de conservation $a+b+c=1$. Le second est le produit $\rho = abc$, en effet
 %
 \begin{equation}\label{rho_invariant}
 \begin{split}
 	\frac{\dd \rho}{\dd t} 
-	&= \dot a bc + a \dot b c + ab \dot c \\
-	&= ka(b-c) + kb(c-a) + kc(a-b) \\
-	&= 0
+	&= \dot a bc + a \dot b c + ab \dot c, \\
+	&= ka(b-c) + kb(c-a) + kc(a-b), \\
+	&= 0.
 \end{split}
 \end{equation}
 %
@@ -169,9 +169,9 @@ où $\Psi_t(a,b,c)$ est la densité de probabilité pour les fractions $a,b,c$,
 
 \par Cette équation décrit la dynamique du système à une échelle intermédiaire, que l'on pourrait qualifier de "mésoscopique". L'équation de Fokker-Planck s'obtient dans la limite de grand $N$, mais nous gardons encore des puissances de $1/N$ dans le terme de diffusion. Cette description garde donc le caractère aléatoire des trajectoires microscopiques. Ce niveau de description est approprié pour étudier des phénomènes d'origine stochastique, comme l'extinction d'une des espèces du modèle, en ayant la possibilité d'employer les outils de calcul différentiel, qui s'appliquent à une description en variables continues. 
 
-\par Il est important de souligner que l'échelle de temps apparaissant dans les équations maîtresse et de Fokker-Planck n'est pas la même. Pour formuler l'équation de Fokker-Planck ainsi, il est nécessaire d'absorber les paramètres $k$ et $N$ dans la variable temporelle (voir section suivante). 
+\par Il est important de souligner que les échelles de temps apparaissant dans l'équation maîtresse et dans l'équation de Fokker-Planck ne sont pas les mêmes. Pour formuler l'équation de Fokker-Planck ainsi, il est nécessaire d'absorber les paramètres $k$ et $N$ dans la variable temporelle (voir section \ref{section_kramers_moyal}, eq \ref{moyal_redef_temps}). 
 
-\par Les quantités $\mu_i$ et $D_{ij}$ sont respectivement les vecteurs de dérive et la matrice de diffusion. Le vecteur de dérive est donné par 
+\par Les quantités $\mu_i$ et $D_{ij}$ sont respectivement le vecteur de dérive et la matrice de diffusion. Le vecteur de dérive est donné par 
 %
 \begin{equation}\label{mu_i_expr}
 	\boldsymbol\mu^T = 
@@ -291,10 +291,10 @@ Remarquons que le terme coloré en brun s'annule avec ses homologues issus des p
 \par La dernière étape consiste à redéfinir l'échelle de temps en absorbant $\epsilon$ et $k$ dans $t$, de sorte que 
 %
 \begin{equation}\label{moyal_redef_temps}
-	\frac{k}{\epsilon} \, t \rightarrow t,
+	\frac{k}{\epsilon} \, t \rightarrow t.
 \end{equation}
 %
-nous obtenons ainsi 
+Nous obtenons ainsi 
 %
 \begin{equation}\label{moyal_dev_epsilon_complet}
 \begin{split}
@@ -348,7 +348,7 @@ La correspondance entre les termes violets, vert et bleus des équations \ref{mo
 \section{Réduction à un processus radial}
 \label{section_stoch_averaging}
 
-\par L'évolution dictée par l'équation de Fokker-Planck montre que la dérive le long du vecteur $\boldsymbol \mu$, se produit sur des temps beaucoup plus courts que le phénomène de diffusion. Le rapport entre les deux échelles est donné par le facteur $\epsilon = 1/N$ dans la matrice de diffusion (eq \ref{D_ij_expr}), qui montre que la diffusion est de moins en moins importante dans la limite $N\rightarrow\infty$. Cette différence d'échelle implique qu'une densité de probabilité piquée autour d'un point de l'espace des phase va évoluer le long d'une orbite déterministe beaucoup plus vite qu'elle ne va s'étaler sur les orbites voisines.
+\par L'évolution dictée par l'équation de Fokker-Planck montre que la dérive le long du vecteur $\boldsymbol \mu$ se produit sur des temps beaucoup plus courts que le phénomène de diffusion. Le rapport entre les deux échelles est donné par le facteur $\epsilon = 1/N$ dans la matrice de diffusion (eq \ref{D_ij_expr}), qui montre que la diffusion est de moins en moins importante dans la limite $N\rightarrow\infty$. Cette différence d'échelle implique qu'une densité de probabilité piquée autour d'un point de l'espace des phases va évoluer le long d'une orbite déterministe beaucoup plus vite qu'elle ne va s'étaler sur les orbites voisines.
 
 \par Une conséquence importante est que nous pouvons approximer l'évolution de l'invariant $\rho$ comme un processus stochastique unidimensionnel. %L'idée est de "moyenner" le terme diffusif le long des trajectoires déterministes. 
 Cette simplification nous intéresse tout particulièrement car les outils que nous allons utiliser pour traiter les extinctions dans le système s'appliquent beaucoup plus simplement aux processus unidimensionnels.
@@ -475,7 +475,7 @@ en utilisant un coefficient de diffusion $D(a,b,c)$ qui préserve la variance du
 \section{Problème de première sortie d'un intervalle}
 \label{section_echap}
 
-\par Le problème de calculer le temps moyen d'extinction d'une espèce dans le modèle de prédation cyclique est équivalent à calculer le temps moyen de première sortie de la région ${a,b,c|a,b,c>0}$, où chaque espèce est présente avec une fraction non nulle. Une fois que la diffusion dans le système est réduite à un processus radial, le problème est unidimensionnel et la région à échapper est un simple intervalle, de frontières $\rho=0$ et $\rho=1/27$. Pour calculer le temps moyen d'extinction, nous allons nous baser sur ce parallèle entre les deux problèmes et utiliser les techniques d'analyse servant à résoudre le problème de première sortie pour un processus stochastique homogène 1D.
+\par Le problème de calculer le temps moyen d'extinction d'une espèce dans le modèle de prédation cyclique est équivalent à calculer le temps moyen de première sortie de la région $\{a,b,c|a,b,c>0\}$, où chaque espèce est présente avec une fraction non nulle. Une fois que la diffusion dans le système est réduite à un processus radial, le problème est unidimensionnel et la région à échapper est un simple intervalle, de frontières $\rho=0$ et $\rho=1/27$. Pour calculer le temps moyen d'extinction, nous allons nous baser sur ce parallèle entre les deux problèmes et utiliser les techniques d'analyse servant à résoudre le problème de première sortie pour un processus stochastique homogène 1D.
 
 \par On suppose que le processus 1D est régi par l'équation de Fokker-Planck
 %
@@ -540,7 +540,7 @@ on obtient une équation différentielle pour $T(x)$,
 %
 Le membre de droite de l'équation \ref{echap_int_eq_G_2} s'évalue à $-1$ car au temps initial la particule est dans l'intervalle avec probabilité $1$ et donc $G(x,0)=1$. De même, dans la limite de temps infini, la particule fini tôt ou tard par être absorbée par la barrière $a$, ainsi $G(x,\infty)=0$. 
 
-\par Pour résoudre l'équation différentielle \ref{echap_eq_T}, il reste à spécifier les conditions aux bords. La barrière $a$ est absorbante, une particule se trouvant en $x=a$ est ainsi immédiatement retirée de l'intervalle $[a,b]$ nous avons donc $G(a,0)=0$ comme condition à ce bord. Sur le temps de sortie, cette condition se traduit par $T(a)=0$. La barrière $b$ est répulsive, cela signifie que le flux net de probabilité est nul en $b$, et donc $\partial_x G(b,0) = 0$. Cela se traduit par $\partial_x T(b) = 0$.
+\par Pour résoudre l'équation différentielle \ref{echap_eq_T}, il reste à spécifier les conditions aux bords. La barrière $a$ est absorbante, une particule se trouvant en $x=a$ est ainsi immédiatement retirée de l'intervalle $[a,b]$, nous avons donc $G(a,0)=0$ comme condition à ce bord. Sur le temps de sortie, cette condition se traduit par $T(a)=0$. La barrière $b$ est répulsive, cela signifie que le flux net de probabilité est nul en $b$, et donc $\partial_x G(b,0) = 0$. Cela se traduit par $\partial_x T(b) = 0$.
 
 \par La résolution de l'équation différentielle pour $T(x)$ peut se faire par intégration directe. En posant $Y(x) = \partial_x T(x)$, l'équation \ref{echap_eq_T} devient 
 %
@@ -621,25 +621,25 @@ Les bornes $a$ et $b$ sont dans ce cas $\rho=0$ et $\rho=1/27$, respectivement.
 \par Pour calculer le point d'une orbite $\rho = abc$ qui maximise $a$, il faut remarquer que quand $a$ est maximal nous avons $b=c$. L'état est donc caractérisé par les équations 
 %
 \begin{equation}\label{syst_a_max}
-	\rho = abc = ab^2  \qquad \text{et} \qquad 1 = a+b+c = a+2b
+	\rho = abc = ab^2  \qquad \text{et} \qquad 1 = a+b+c = a+2b.
 \end{equation}
 %
-en isolant $a$ on obtient une équation cubique 
+En isolant $a$ on obtient une équation cubique 
 %
 \begin{equation}\label{eq_a_max}
 	\rho = \frac 14 a (1-a)^2.
 \end{equation}
 %
-Bien que les équations polynomiales soient exactement solubles et plutôt que d'utiliser un algorithme de résolution de polynômes, nous procédons simplement de manière itérative pour recherche la solution de cette équation. En partant de $a=1$, nous diminuons la valeur de $a$ par petit à petit jusqu'à ce que les deux membres de l'équation s'équilibrent. Lorsque le point d'équilibre est passé, nous rebroussons chemin et augmentons maintenant $a$ par pas deux fois plus petits que précédemment. Nous répétons cette procédure jusqu'à ce que le pas soit suffisamment petit.
+Bien que les équations polynomiales soient exactement solubles et bien nous pourrions utiliser un algorithme de résolution de polynômes, nous procédons simplement de manière itérative pour chercher la solution de cette équation. En partant de $a=1$, nous diminuons la valeur de $a$ par pas $\Delta a$ jusqu'à ce que les deux membres de l'équation s'équilibrent. Lorsque le point d'équilibre est passé, nous rebroussons chemin et augmentons maintenant $a$ par pas deux fois plus petits que précédemment, $\Delta a /2$. Nous répétons cette procédure jusqu'à ce que le pas soit suffisamment petit.
 
 \par Notons que la procédure complète pour calculer le temps d'extinction moyen requiert quatre intégrations: trois pour résoudre le problème d'échappement (voir équations \ref{echap_sol_T_finale} et \ref{echap_psi_x}) et une pour calculer $\bar D(\rho)$. Pour accélérer le calcul, nous calculons $\bar D(\rho)$ à l'avance en plusieurs points de l'intervalle $[0,1/27]$. Ensuite, nous calculons $\bar D(\rho)$ en interpolant les valeurs que nous avions enregistrées. Nous interpolons avec une parabole en utilisant les trois points les plus proches de la valeur désirée. Le calcul peut ainsi être effectué en quelques minutes.
 
-\par Au lieu de calculer le temps d'extinction moyen à partir de la valeur exacte de $\bar D(\rho)$, nous pouvons également faire une approximation de bruit constant en utilisant un terme de diffusion constant. Le choix $D=0.001$ fait par Frey et al. \cite{frey2012} donne une assez bonne approximation du résultat exact. La figure \ref{fig:T_extc} montre les courbes obtenues par interpolation et approximation de $\bar D(\rho)$ côte à côte. Cette figure reporte également des résultats de simulations du système, dont nous parlons dans la section suivante. L'accord entre les calculs théorique (interpolation) et les simulation est très bon pour $N=1000$. Cela montre la qualité de l'approximation de moyennage effectué dans la section \ref{section_stoch_averaging} pour réduire le processus à une dimension. La figure \ref{fig:qualite_selon_N_D} montre le même graphique pour un plus petit nombre d'individus, $N=100$, pour lequel l'accord avec la simulation commence à se dégrader. Cette figure montre aussi un graphe obtenu pour une autre approximation de bruit constant, avec $\bar D(\rho) = 8\times 10^{-4}$, afin de donner une idée de la sensibilité d'une telle approximation par rapport à la valeur choisie pour le bruit. 
+\par Au lieu de calculer le temps d'extinction moyen à partir de la valeur exacte de $\bar D(\rho)$, nous pouvons également faire une approximation de bruit constant en utilisant un terme de diffusion constant. Le choix $D=0.001$ fait par Frey et al. \cite{frey2012} donne une assez bonne approximation du résultat exact. La figure \ref{fig:T_extc} montre les courbes obtenues par interpolation et approximation de $\bar D(\rho)$ côte à côte. Cette figure reporte également des résultats de simulations du système, dont nous parlons dans la section suivante. L'accord entre les calculs théoriques (interpolation) et les simulations est très bon pour $N=1000$. Cela montre la qualité de l'approximation de moyennage effectué dans la section \ref{section_stoch_averaging} pour réduire le processus à une dimension. La figure \ref{fig:qualite_selon_N_D} montre le même graphique pour un plus petit nombre d'individus, $N=100$, pour lequel l'accord avec les simulations commence à se dégrader. Nous pouvons constater que nous obtenons pratiquement les mêmes valeurs du temps moyen d'extinction divisé par $N$, ce qui montre que le temps moyen d'extinction est bien proportionnel à $N$. Cette figure affiche aussi un graphe obtenu pour une autre approximation de bruit constant, avec $\bar D(\rho) = 8\times 10^{-4}$, afin de donner une idée de la sensibilité d'une telle approximation par rapport à la valeur choisie pour le bruit. 
 
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=0.9\linewidth]{figures/extc_time_comparison}
-	\caption{Temps d'extinction en fonction de la valeur de $\rho$ au point de départ dans le système. L'unité de temps est celle du temps microscopique (celui de l'équation maîtresse). Pour retrouver le temps en unités mésoscopiques (celui de l'équation de Fokker-Planck), il faut multiplier par $N$. La comparaison est faite des temps d'extinction calculé selon l'expression exacte de $\bar D(\rho)$ ("interp"), une approximation à bruit constant $\bar D(\rho)=0.001$ ("approx") ou encore en faisant des simulations du système ("simul"). Dans ces calculs, le nombre d'individus est $N=1000$. Les résultats des simulations sont moyennés sur $10^4$ réalisations.}
+	\caption{Temps d'extinction en fonction de la valeur de $\rho$ au point de départ dans le système. L'unité de temps est celle du temps microscopique (celui de l'équation maîtresse). Pour retrouver le temps en unités mésoscopiques (celui de l'équation de Fokker-Planck), il faut multiplier par $N$. La comparaison est faite des temps d'extinction calculés selon l'expression exacte de $\bar D(\rho)$ ("interp"), une approximation à bruit constant $\bar D(\rho)=0.001$ ("approx") ou encore en faisant des simulations du système ("simul"). Dans ces calculs, le nombre d'individus est $N=1000$. Les résultats des simulations sont moyennés sur $10^4$ réalisations.}
 	\label{fig:T_extc}
 \end{figure}
 
@@ -678,7 +678,7 @@ Bien que les équations polynomiales soient exactement solubles et plutôt que d
 où $r$ est un nombre aléatoire uniformément distribué entre $0$ et $1$.
 La réaction à effectuer est choisie avec un poids de probabilité donné par le rapport entre le taux pour cette réaction et le taux total, $f_{ij}/f_0$.
 
-\par La condition initiale du système est calculée à partir de l'invariant macroscopique $\rho=abc$, entré comme paramètre de la simulation. Nous démarrons la simulation au point de l'orbite où $a$ est maximal, comme expliqué dans la section précédente, les fractions $a,b,c$ calculées sont bien sûr converties en nombres $A,B,C$ d'individus pour chaque espèce. Nous laissons ensuite la simulation tourner jusqu'à ce que l'on détecte une extinction. Plus précisément, nous testons lors de chaque réaction si la population d'une des espèces est tombée à zéro.
+\par La condition initiale du système est calculée à partir de l'invariant macroscopique $\rho=abc$, entré comme paramètre de la simulation. Nous démarrons la simulation au point de l'orbite où $a$ est maximal, comme expliqué dans la section précédente. Les fractions $a,b,c$ calculées sont bien sûr converties en nombres $A,B,C$ d'individus pour chaque espèce. Nous laissons ensuite la simulation tourner jusqu'à ce que l'on détecte une extinction. Plus précisément, nous testons lors de chaque réaction si la population d'une des espèces est tombée à zéro.
 
 \par A la fin de chaque simulation, nous enregistrons le temps d'extinction observé. Les simulations sont répétées un grand nombre de fois, ici $10^4$ réalisations, afin de calculer le temps d'extinction moyen avec une marge d'erreur raisonnablement petite. L'erreur reportée pour la détermination de la moyenne est de un écart-type. L'écart-type sur une moyenne de $M$ réalisations est donnée par l'écart-type d'une réalisation divisé par la racine carrée de $M$:
 %
