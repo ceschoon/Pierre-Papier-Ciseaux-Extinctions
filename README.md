@@ -26,7 +26,11 @@ Le dossier 'code' contient les fichiers suivants:
 
 ## Installation
 
-Le code servant à reproduire les données numériques présentées dans le rapport se trouve dans le dossier "code". Il a été développé sous Ubuntu 18.04 avec le compilateur g++ 7.5.0. 
+Le code servant à reproduire les données numériques présentées dans le rapport se trouve dans le dossier "code". Il a été développé sous Ubuntu 18.04 avec les programmes suivants
+
+> g++ 7.5.0 <br>
+> gnuplot 5.2 <br>
+> pdflatex (from texlive-latex-base) <br>
 
 Les exécutables peuvent tous être compilés en exécutant le script 'code/compile_everything.sh'
 
